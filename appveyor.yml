@@ -1,0 +1,34 @@
+# Copyright (c) 2016 Surya Suluh and osrmnet contributors.  All rights reserved.
+# Licensed under the MIT License.  See included LICENSE in the project root for license information.
+
+-
+  shallow_clone: true
+  version: 0.1.0.{build}
+  branches:
+    only:
+      - master
+  configuration: Release
+  platform: x64
+  image: Visual Studio 2015
+  init:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  cache:
+  - packages -> **\packages.config
+  before_build:
+  - appveyor-retry nuget restore .\src\osrm.net.sln
+  build_script:
+  - msbuild .\src\osrm.net.sln /t:Rebuild /p:Configuration=Release;Platform="x64" /m
+  - nuget.exe pack .\src\osrm.net\osrm.net.nuspec -NonInteractive  
+  artifacts:
+  - path: '**\*.nupkg'
+  assembly_info:
+    patch: true
+    file: AssemblyInfo.*
+    assembly_version: "0.1.0"
+    assembly_file_version: "0.1.0"
+    assembly_informational_version: "0.1.0"
+  test:
+    assemblies: '**\*.Test.dll'
+  deploy_script:
+  on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))

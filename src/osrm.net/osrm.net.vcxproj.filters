@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="Coordinate.cpp" />
+    <ClCompile Include="EngineConfig.cpp" />
+    <ClCompile Include="OSRM.cpp" />
+    <ClCompile Include="RouteParameters.cpp" />
+    <ClCompile Include="RouteResult.cpp" />
+    <ClCompile Include="Stdafx.cpp" />
+    <ClCompile Include="OsrmException.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Coordinate.h" />
+    <ClInclude Include="EngineConfig.h" />
+    <ClInclude Include="OSRM.h" />
+    <ClInclude Include="OsrmFwdDecl.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="RouteParameters.h" />
+    <ClInclude Include="RouteResult.h" />
+    <ClInclude Include="Stdafx.h" />
+    <ClInclude Include="OsrmException.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="app.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
