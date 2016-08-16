@@ -14,7 +14,7 @@
   # init:
   # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   cache:
-  - packages -> **\packages.config
+  - .\src\packages -> .\src\**\packages.config
   before_build:
   - appveyor-retry nuget restore .\src\osrm.net.sln
   build_script:
