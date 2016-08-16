@@ -10,8 +10,9 @@
   configuration: Release
   platform: x64
   image: Visual Studio 2015
-  init:
-  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  # Uncomment to debug the AV build worker
+  # init:
+  # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   cache:
   - packages -> **\packages.config
   before_build:
@@ -20,7 +21,7 @@
   - msbuild .\src\osrm.net.sln /t:Rebuild /p:Configuration=Release;Platform="x64" /m
   - nuget.exe pack .\src\osrm.net\osrm.net.nuspec -NonInteractive  
   artifacts:
-  - path: '**\*.nupkg'
+  - path: '*.nupkg'
   assembly_info:
     patch: true
     file: AssemblyInfo.*
@@ -30,5 +31,6 @@
   test:
     assemblies: '**\*.Test.dll'
   deploy_script:
-  on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  # Uncomment to debug the AV build worker
+  # on_finish:
+  # - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
