@@ -19,18 +19,22 @@
   - appveyor-retry nuget restore .\src\osrm.net.sln
   build_script:
   - msbuild .\src\osrm.net.sln /t:Rebuild /p:Configuration=Release;Platform="x64" /m
-  - nuget.exe pack .\src\osrm.net\osrm.net.nuspec -NonInteractive  
+  - nuget.exe pack .\src\osrm.net\osrm.net.nuspec -NonInteractive  -Version %APPVEYOR_BUILD_VERSION%-pre
   artifacts:
   - path: '*.nupkg'
   assembly_info:
     patch: true
     file: AssemblyInfo.*
-    assembly_version: "0.1.0"
-    assembly_file_version: "0.1.0"
-    assembly_informational_version: "0.1.0"
+    assembly_version: "0.1.0.{build}"
+    assembly_file_version: "0.1.0.{build}"
+    assembly_informational_version: "0.1.0.{build}-pre"
   test:
     assemblies: '**\*.Test.dll'
-  deploy_script:
+  deploy:
+    provider: NuGet
+    api_key:
+      secure: EOx473RuAtGsqMKKDlZoUOx/2ae4fH0nYt2yVpP2y7sUJ02fZ6pGEHH+zthADQYG
+    skip_symbols: false
   # Uncomment to debug the AV build worker
   # on_finish:
   # - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
