@@ -56,11 +56,11 @@ namespace osrm.net.test
             EngineConfig.Dispose();
         }
     }
-    public class UsingOrlandoDataFile : IClassFixture<OrlandoEngineConfig>
+    public class When_UsingOrlandoDataFile : IClassFixture<OrlandoEngineConfig>
     {
         private readonly OrlandoEngineConfig _orlandoEngineConfig;
 
-        public UsingOrlandoDataFile(OrlandoEngineConfig orlandoEngineConfig)
+        public When_UsingOrlandoDataFile(OrlandoEngineConfig orlandoEngineConfig)
         {
             _orlandoEngineConfig = orlandoEngineConfig;
         }
@@ -75,7 +75,7 @@ namespace osrm.net.test
         }
 
         [Fact]
-        public void WithInvalidCoordinate_ShouldReturnStatusError()
+        public void RoutingWithInvalidCoordinate_ShouldReturnStatusError()
         {
             using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
             {
@@ -87,7 +87,7 @@ namespace osrm.net.test
         }
 
         [Fact]
-        public void WithValidStartEndCoordinate_ShouldReturnStatusOk()
+        public void RoutingWithValidStartEndCoordinate_ShouldReturnStatusOk()
         {
             using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
             {
@@ -104,7 +104,7 @@ namespace osrm.net.test
             }
         }
 
-        [Fact]public void WithAnnotationTrue_ShouldReturnStatusOkWithValidAnnotations()
+        [Fact]public void RoutingWithAnnotationTrue_ShouldReturnStatusOkWithValidAnnotations()
         {
             using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
             {
@@ -126,7 +126,7 @@ namespace osrm.net.test
         }
 
         [Fact]
-        public void WithStepsTrue_ShouldThrowNotSupportedException()
+        public void RoutingWithStepsTrue_ShouldThrowNotSupportedException()
         {
             // Version < 0.2.x doesn't support steps = true
             var ex = Assert.Throws<NotSupportedException>(() =>
@@ -148,11 +148,11 @@ namespace osrm.net.test
             
         }
     }
-    public class UsingInvalidEngineConfig : IClassFixture<InvalidEngineConfig>
+    public class When_UsingInvalidEngineConfig : IClassFixture<InvalidEngineConfig>
     {
         private readonly InvalidEngineConfig _invalidEngine;
 
-        public UsingInvalidEngineConfig(InvalidEngineConfig invalidEngine)
+        public When_UsingInvalidEngineConfig(InvalidEngineConfig invalidEngine)
         {
             _invalidEngine = invalidEngine;
         }
