@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>osrmnet</id>
-    <version>0.1.0-pre</version>
+    <version>0.1</version>
     <title>Osrm.Net</title>
     <authors>Surya Suluh and Osrm.Net contributors</authors>
     <owners>Surya Suluh</owners>
@@ -16,6 +16,6 @@
   </metadata>
 
   <files>
-    <file src="bin\x64\Release\*.dll" target="lib\net40" />    
+    <file src="bin\x64\Release\*.dll" target="lib\net40" />
   </files>
 </package>
