@@ -11,6 +11,9 @@ Contribution is always welcome, please email me:  surya@productivityapex.com
 # Status
 This project is still at pre-release state.  Currently there's only limited implementation for OSRM.Route().
 
+# Installation
+Get the binaries from nuget (http://www.nuget.org/packages/osrmnet)
+
 # Getting Started
 Coming soon !
 
