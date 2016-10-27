@@ -85,7 +85,7 @@ osrmnet::RouteLeg^ ProcessLeg(const osrm::util::json::Value& jsonLeg, bool gener
 		}
 		for (auto i = 0; i < annonNodes.size(); i++)
 		{
-			annotation->Nodes->Add(static_cast<std::uint64_t>(annonNodes[i].get<osrm::json::Number>().value));
+			annotation->Nodes->Add(static_cast<std::int64_t>(annonNodes[i].get<osrm::json::Number>().value));
 		}
 
 		result->Annotation = annotation;
