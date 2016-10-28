@@ -33,13 +33,13 @@ namespace osrmnet
 	public:
 		property System::Collections::Generic::IList<double>^ Distance;
 		property System::Collections::Generic::IList<double>^ Duration;
-		property System::Collections::Generic::IList<unsigned long long>^ Nodes;
+		property System::Collections::Generic::IList<long long>^ Nodes;
 
 		Annotation()
 		{
 			Distance = gcnew System::Collections::Generic::List<double>();
 			Duration = gcnew System::Collections::Generic::List<double>();
-			Nodes = gcnew System::Collections::Generic::List<unsigned long long>();
+			Nodes = gcnew System::Collections::Generic::List<long long>();
 		}
 	};
 
