@@ -1,14 +1,13 @@
 # Copyright (c) 2016 Surya Suluh and osrmnet contributors.  All rights reserved.
 # Licensed under the MIT License.  See included LICENSE in the project root for license information.
 
-# Master Branch (It's also release branch at this moment)
+# Master Branch (Release is controlled by Tag)
 -
   shallow_clone: true
   version: 0.1.0.{build}
   branches:
     only:
       - master
-  skip_non_tags: true
   configuration: Release
   platform: x64
   image: Visual Studio 2015
@@ -37,34 +36,9 @@
     api_key:
       secure: EOx473RuAtGsqMKKDlZoUOx/2ae4fH0nYt2yVpP2y7sUJ02fZ6pGEHH+zthADQYG
     skip_symbols: false
+    on:
+      branch: master
+      appveyor_repo_tag: true
   # Uncomment to debug the AV build worker
   # on_finish:
   # - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-
-# Develop and Feature Branch
--
-  shallow_clone: true
-  version: 0.1.0.{build}-{branch}
-  branches:
-    only:
-      - develop
-      - /Feature\/.*/
-  configuration: Debug
-  platform: x64
-  image: Visual Studio 2015
-  cache:
-  - .\src\packages -> .\src\**\packages.config
-  before_build:
-  - appveyor-retry nuget restore .\src\osrm.net.sln
-  build_script:
-  - msbuild .\src\osrm.net.sln /t:Rebuild /p:Configuration=Debug;Platform="x64" /m
-  artifacts:
-  - path: '*.nupkg'
-  assembly_info:
-    patch: true
-    file: AssemblyInfo.*
-    assembly_version: "0.1.0.{build}"
-    assembly_file_version: "0.1.0.{build}"
-    assembly_informational_version: "0.1.0.{build}-dev"
-  test:
-    assemblies: '**\*.Test.dll'
