@@ -36,12 +36,12 @@
 
 #include <boost/filesystem/fstream.hpp>
 
-struct lua_State;
-
 namespace osrm
 {
 namespace extractor
 {
+
+class ScriptingEnvironment;
 
 namespace lookup
 {
@@ -83,21 +83,21 @@ class EdgeBasedGraphFactory
     EdgeBasedGraphFactory(const EdgeBasedGraphFactory &) = delete;
     EdgeBasedGraphFactory &operator=(const EdgeBasedGraphFactory &) = delete;
 
-    explicit EdgeBasedGraphFactory(
-        std::shared_ptr<util::NodeBasedDynamicGraph> node_based_graph,
-        const CompressedEdgeContainer &compressed_edge_container,
-        const std::unordered_set<NodeID> &barrier_nodes,
-        const std::unordered_set<NodeID> &traffic_lights,
-        std::shared_ptr<const RestrictionMap> restriction_map,
-        const std::vector<QueryNode> &node_info_list,
-        ProfileProperties profile_properties,
-        const util::NameTable &name_table,
-        const std::vector<std::uint32_t> &turn_lane_offsets,
-        const std::vector<guidance::TurnLaneType::Mask> &turn_lane_masks);
+    explicit EdgeBasedGraphFactory(std::shared_ptr<util::NodeBasedDynamicGraph> node_based_graph,
+                                   const CompressedEdgeContainer &compressed_edge_container,
+                                   const std::unordered_set<NodeID> &barrier_nodes,
+                                   const std::unordered_set<NodeID> &traffic_lights,
+                                   std::shared_ptr<const RestrictionMap> restriction_map,
+                                   const std::vector<QueryNode> &node_info_list,
+                                   ProfileProperties profile_properties,
+                                   const util::NameTable &name_table,
+                                   std::vector<std::uint32_t> &turn_lane_offsets,
+                                   std::vector<guidance::TurnLaneType::Mask> &turn_lane_masks,
+                                   guidance::LaneDescriptionMap &lane_description_map);
 
-    void Run(const std::string &original_edge_data_filename,
+    void Run(ScriptingEnvironment &scripting_environment,
+             const std::string &original_edge_data_filename,
              const std::string &turn_lane_data_filename,
-             lua_State *lua_state,
              const std::string &edge_segment_lookup_filename,
              const std::string &edge_penalty_filename,
              const bool generate_edge_lookup);
@@ -127,8 +127,6 @@ class EdgeBasedGraphFactory
                                           const NodeID w,
                                           const double angle) const;
 
-    std::int32_t GetTurnPenalty(double angle, lua_State *lua_state) const;
-
   private:
     using EdgeData = util::NodeBasedDynamicGraph::EdgeData;
 
@@ -156,15 +154,16 @@ class EdgeBasedGraphFactory
     ProfileProperties profile_properties;
 
     const util::NameTable &name_table;
-    const std::vector<std::uint32_t> &turn_lane_offsets;
-    const std::vector<guidance::TurnLaneType::Mask> &turn_lane_masks;
+    std::vector<std::uint32_t> &turn_lane_offsets;
+    std::vector<guidance::TurnLaneType::Mask> &turn_lane_masks;
+    guidance::LaneDescriptionMap &lane_description_map;
 
     void CompressGeometry();
     unsigned RenumberEdges();
     void GenerateEdgeExpandedNodes();
-    void GenerateEdgeExpandedEdges(const std::string &original_edge_data_filename,
+    void GenerateEdgeExpandedEdges(ScriptingEnvironment &scripting_environment,
+                                   const std::string &original_edge_data_filename,
                                    const std::string &turn_lane_data_filename,
-                                   lua_State *lua_state,
                                    const std::string &edge_segment_lookup_filename,
                                    const std::string &edge_fixed_penalties_filename,
                                    const bool generate_edge_lookup);

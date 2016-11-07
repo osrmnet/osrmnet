@@ -25,8 +25,8 @@
 #define STXXL_VERSION_PHASE "prerelease/Release"
 
 // if this is a git repository, add the refspec and commit sha
-#define STXXL_VERSION_GIT_REFSPEC "1.4.1-356-g1babe45"
-#define STXXL_VERSION_GIT_SHA1 "1babe452214b4613a2a488d80073f4185c05a0b3"
+#define STXXL_VERSION_GIT_REFSPEC "1.4.1-366-g78dd7ec"
+#define STXXL_VERSION_GIT_SHA1 "78dd7ec6e72d7d6ef1209e594fc08e3759af5099"
 
 #ifndef STXXL_DEBUG_ASSERTIONS
 /* #undef STXXL_DEBUG_ASSERTIONS */

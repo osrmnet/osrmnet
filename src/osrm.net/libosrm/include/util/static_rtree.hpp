@@ -17,6 +17,7 @@
 #include <boost/assert.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
+#include <boost/format.hpp>
 #include <boost/iostreams/device/mapped_file.hpp>
 
 #include <tbb/parallel_for.h>
@@ -192,9 +193,9 @@ class StaticRTree
 
                     Coordinate current_centroid = coordinate_calculation::centroid(
                         m_coordinate_list[current_element.u], m_coordinate_list[current_element.v]);
-                    current_centroid.lat =
-                        FixedLatitude{static_cast<std::int32_t>(COORDINATE_PRECISION *
-                                      web_mercator::latToY(toFloating(current_centroid.lat)))};
+                    current_centroid.lat = FixedLatitude{static_cast<std::int32_t>(
+                        COORDINATE_PRECISION *
+                        web_mercator::latToY(toFloating(current_centroid.lat)))};
 
                     current_wrapper.m_hilbert_value = hilbertCode(current_centroid);
                 }
@@ -385,7 +386,7 @@ class StaticRTree
             std::size_t num_leaves = m_leaves_region.size() / sizeof(LeafNode);
             m_leaves.reset(reinterpret_cast<const LeafNode *>(m_leaves_region.data()), num_leaves);
         }
-        catch (std::exception &exc)
+        catch (const std::exception &exc)
         {
             throw exception(boost::str(boost::format("Leaf file %1% mapping failed: %2%") %
                                        leaf_file % exc.what()));

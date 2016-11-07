@@ -64,7 +64,8 @@ static const LaneID INVALID_LANEID = std::numeric_limits<LaneID>::max();
 using LaneDataID = std::uint16_t;
 static const LaneDataID INVALID_LANE_DATAID = std::numeric_limits<LaneDataID>::max();
 using LaneDescriptionID = std::uint16_t;
-static const LaneDescriptionID INVALID_LANE_DESCRIPTIONID = std::numeric_limits<LaneDescriptionID>::max();
+static const LaneDescriptionID INVALID_LANE_DESCRIPTIONID =
+    std::numeric_limits<LaneDescriptionID>::max();
 
 using BearingClassID = std::uint32_t;
 static const BearingClassID INVALID_BEARING_CLASSID = std::numeric_limits<BearingClassID>::max();
@@ -81,6 +82,8 @@ static const NameID INVALID_NAMEID = std::numeric_limits<NameID>::max();
 static const NameID EMPTY_NAMEID = 0;
 static const unsigned INVALID_COMPONENTID = 0;
 static const EdgeWeight INVALID_EDGE_WEIGHT = std::numeric_limits<EdgeWeight>::max();
+
+using DatasourceID = std::uint8_t;
 
 struct SegmentID
 {
