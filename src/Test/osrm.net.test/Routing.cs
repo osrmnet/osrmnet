@@ -120,9 +120,13 @@ namespace osrm.net.test
                 }, out routeResults);
 
                 var annotations = routeResults.SelectMany(x => x.Legs).Select(y => y.Annotation).Where(x => x != null);
+                var enumerable = annotations as IList<Annotation> ?? annotations.ToList();
+                var distances = enumerable.SelectMany(x => x.Distance);
+                var nodes = enumerable.SelectMany(x => x.Nodes);
 
                 Assert.Equal(result, Status.Ok);
-                Assert.NotEmpty(annotations);
+                Assert.NotEmpty(distances);
+                Assert.NotEmpty(nodes);
             }
         }
 

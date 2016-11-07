@@ -2,9 +2,11 @@
 #define OSRM_EXTRACTOR_GUIDANCE_MOTORWAY_HANDLER_HPP_
 
 #include "extractor/guidance/intersection.hpp"
+#include "extractor/guidance/intersection_generator.hpp"
 #include "extractor/guidance/intersection_handler.hpp"
 #include "extractor/query_node.hpp"
 
+#include "util/attributes.hpp"
 #include "util/name_table.hpp"
 #include "util/node_based_graph.hpp"
 
@@ -25,8 +27,10 @@ class MotorwayHandler : public IntersectionHandler
     MotorwayHandler(const util::NodeBasedDynamicGraph &node_based_graph,
                     const std::vector<QueryNode> &node_info_list,
                     const util::NameTable &name_table,
-                    const SuffixTable &street_name_suffix_table);
-    ~MotorwayHandler() override final;
+                    const SuffixTable &street_name_suffix_table,
+                    const IntersectionGenerator &intersection_generator);
+
+    ~MotorwayHandler() override final = default;
 
     // check whether the handler can actually handle the intersection
     bool canProcess(const NodeID nid,
@@ -39,11 +43,17 @@ class MotorwayHandler : public IntersectionHandler
                             Intersection intersection) const override final;
 
   private:
+    OSRM_ATTR_WARN_UNUSED
     Intersection handleSliproads(const NodeID intersection_node_id,
                                  Intersection intersection) const;
+
+    OSRM_ATTR_WARN_UNUSED
     Intersection fromMotorway(const EdgeID via_edge, Intersection intersection) const;
+
+    OSRM_ATTR_WARN_UNUSED
     Intersection fromRamp(const EdgeID via_edge, Intersection intersection) const;
 
+    OSRM_ATTR_WARN_UNUSED
     Intersection fallback(Intersection intersection) const;
 };
 

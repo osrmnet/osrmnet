@@ -5,6 +5,7 @@
 #include "extractor/guidance/turn_lane_data.hpp"
 #include "extractor/query_node.hpp"
 #include "engine/guidance/route_step.hpp"
+#include "util/node_based_graph.hpp"
 #include "util/typedefs.hpp"
 
 #include <iomanip>
@@ -22,16 +23,14 @@ inline void print(const engine::guidance::RouteStep &step)
     std::cout << static_cast<int>(step.maneuver.instruction.type) << " "
               << static_cast<int>(step.maneuver.instruction.direction_modifier) << "  "
               << static_cast<int>(step.maneuver.waypoint_type) << " "
-              << " Lanes: (" << static_cast<int>(step.maneuver.lanes.lanes_in_turn) << ", "
-              << static_cast<int>(step.maneuver.lanes.first_lane_from_the_right) << ")"
               << " Duration: " << step.duration << " Distance: " << step.distance
               << " Geometry: " << step.geometry_begin << " " << step.geometry_end
-              << " exit: " << step.maneuver.exit << " Intersections: " << step.intersections.size()
-              << " [";
+              << "\n\tIntersections: " << step.intersections.size() << " [";
 
     for (const auto &intersection : step.intersections)
     {
-        std::cout << "(bearings:";
+        std::cout << "(Lanes: " << static_cast<int>(intersection.lanes.lanes_in_turn) << " "
+                  << static_cast<int>(intersection.lanes.first_lane_from_the_right) << " bearings:";
         for (auto bearing : intersection.bearings)
             std::cout << " " << bearing;
         std::cout << ", entry: ";
@@ -54,6 +53,28 @@ inline void print(const std::vector<engine::guidance::RouteStep> &steps)
     }
 }
 
+inline void print(const extractor::guidance::Intersection &intersection)
+{
+    std::cout << "  Intersection:\n";
+    for (const auto &road : intersection)
+        std::cout << "\t" << toString(road) << "\n";
+    std::cout << std::flush;
+}
+
+inline void print(const NodeBasedDynamicGraph &node_based_graph,
+                  const extractor::guidance::Intersection &intersection)
+{
+    std::cout << "  Intersection:\n";
+    for (const auto &road : intersection)
+    {
+        std::cout << "\t" << toString(road) << "\n";
+        std::cout << "\t\t"
+                  << node_based_graph.GetEdgeData(road.turn.eid).road_classification.ToString()
+                  << "\n";
+    }
+    std::cout << std::flush;
+}
+
 inline void print(const extractor::guidance::lanes::LaneDataVector &turn_lane_data)
 {
     std::cout << " Tags:\n";
@@ -61,7 +82,9 @@ inline void print(const extractor::guidance::lanes::LaneDataVector &turn_lane_da
         std::cout << "\t" << entry.tag << "("
                   << extractor::guidance::TurnLaneType::toString(entry.tag)
                   << ") from: " << static_cast<int>(entry.from)
-                  << " to: " << static_cast<int>(entry.to) << "\n";
+                  << " to: " << static_cast<int>(entry.to)
+                  << " Can Be Suppresssed: " << (entry.suppress_assignment ? "true" : "false")
+                  << "\n";
     std::cout << std::flush;
 }
 
@@ -76,10 +99,7 @@ printTurnAssignmentData(const NodeID at,
     std::cout << std::setprecision(12) << toFloating(coordinate.lat) << " "
               << toFloating(coordinate.lon) << "\n";
 
-    std::cout << "  Intersection:\n";
-    for (const auto &road : intersection)
-        std::cout << "\t" << toString(road) << "\n";
-
+    print(intersection);
     // flushes as well
     print(turn_lane_data);
 }

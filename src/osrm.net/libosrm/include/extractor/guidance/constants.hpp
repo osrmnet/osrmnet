@@ -18,14 +18,23 @@ const double constexpr MAXIMAL_ALLOWED_NO_TURN_DEVIATION = 3.;
 const double constexpr NARROW_TURN_ANGLE = 40.;
 const double constexpr GROUP_ANGLE = 60;
 // angle difference that can be classified as straight, if its the only narrow turn
-const double constexpr FUZZY_ANGLE_DIFFERENCE = 20.;
+const double constexpr FUZZY_ANGLE_DIFFERENCE = 25.;
 const double constexpr DISTINCTION_RATIO = 2;
 
-const double constexpr MAX_ROUNDABOUT_INTERSECTION_RADIUS = 5;
-const double constexpr MAX_ROUNDABOUT_RADIUS = 15; // 30 m diameter as final distinction
+// Named roundabouts with radii larger then than this are seen as rotary
+const double constexpr MAX_ROUNDABOUT_RADIUS = 15;
+// Unnamed small roundabouts that look like intersections are announced as turns,
+// guard against data issues or such roundabout intersections getting too large.
+const double constexpr MAX_ROUNDABOUT_INTERSECTION_RADIUS = 25;
+
 const double constexpr INCREASES_BY_FOURTY_PERCENT = 1.4;
 
 const int constexpr MAX_SLIPROAD_THRESHOLD = 250;
+
+// Road priorities give an idea of how obvious a turn is. If two priorities differ greatly (e.g.
+// service road over a primary road, the better priority can be seen as obvious due to its road
+// category).
+const double constexpr PRIORITY_DISTINCTION_FACTOR = 2.0;
 
 } // namespace guidance
 } // namespace extractor

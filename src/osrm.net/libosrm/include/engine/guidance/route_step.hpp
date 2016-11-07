@@ -25,10 +25,10 @@ namespace guidance
 //  a --> b --> c
 // this struct saves the information of the segment b,c.
 // Notable exceptions are Departure and Arrival steps.
-// Departue: s --> a --> b. Represents the segment s,a with location being s.
+// Departure: s --> a --> b. Represents the segment s,a with location being s.
 // Arrive: a --> b --> t. The segment (b,t) is already covered by the previous segment.
 
-// A represenetation of intermediate intersections
+// A representation of intermediate intersections
 struct Intersection
 {
     static const constexpr std::size_t NO_INDEX = std::numeric_limits<std::size_t>::max();
@@ -58,9 +58,11 @@ struct RouteStep
 {
     unsigned name_id;
     std::string name;
+    std::string ref;
     std::string pronunciation;
     std::string destinations;
     std::string rotary_name;
+    std::string rotary_pronunciation;
     double duration;
     double distance;
     extractor::TravelMode mode;
@@ -74,6 +76,8 @@ struct RouteStep
 inline RouteStep getInvalidRouteStep()
 {
     return {0,
+            "",
+            "",
             "",
             "",
             "",
