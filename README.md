@@ -6,7 +6,11 @@ This project provides necessary .NET wrapper to use OSRM library directly withou
 
 Our design goal is to follow as close as possible the OSRM project APIs and data type.  User should be able to use the existing OSRM documentation to use this library.
 
-Contribution is always welcome, please email me:  surya@productivityapex.com
+Contribution is always welcome, please email me:  ssuluh@yahoo.com
+
+# Important
+Please read the OSRM Wiki:  https://github.com/Project-OSRM/osrm-backend/wiki/Windows-Compilation.
+Ensure the correct MS C/C++ runtime library version installed and valid temp directory specified in your .stxxl.txt before you run osrm-extract and other osrm binaries.
 
 # Status
 This project is still at pre-release state.  Currently there's only limited implementation for OSRM.Route().
