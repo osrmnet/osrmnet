@@ -19,7 +19,7 @@ namespace osrmnet
 		False
 	};
 	
-	ref struct Coordinate;
+	ref class Coordinate;
 
 	public ref class RouteParameters
 	{
