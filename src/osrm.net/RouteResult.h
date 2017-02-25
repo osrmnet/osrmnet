@@ -8,9 +8,9 @@ namespace osrmnet
 {
 	enum class GeometriesType;
 	ref class RouteLeg;
-	ref struct Coordinate;
 	ref class RouteParameters;
-
+	ref class Coordinate;
+	
 	public ref class RouteResult
 	{		
 	public:
@@ -43,25 +43,79 @@ namespace osrmnet
 		}
 	};
 
-	public ref class Geometry
+	public ref class Lane
 	{
 	public:
-		Geometry()
-		{
-			Coordinates = gcnew System::Collections::Generic::List<Coordinate^>();
-		}
+		property System::Collections::Generic::IList<System::String^>^ Indications;
+		property System::Boolean Valid;
 
-		property System::Collections::Generic::IList<osrmnet::Coordinate^>^ Coordinates;
+		Lane()
+		{
+			Indications = gcnew System::Collections::Generic::List<System::String^>();
+		}
+	};
+
+	public ref class Intersection
+	{
+	public:
+		property System::Nullable<int> Out;
+		property System::Nullable<int> In;
+		property System::Collections::Generic::IList<System::Boolean>^ Entry;
+		property System::Collections::Generic::IList<int>^ Bearings;
+		property Coordinate^ Location;
+		property System::Collections::Generic::IList<System::String^>^ Lanes;
+
+		Intersection()
+		{
+			Entry = gcnew System::Collections::Generic::List<System::Boolean>();
+			Bearings = gcnew System::Collections::Generic::List<int>();
+			Lanes = gcnew System::Collections::Generic::List<System::String^>();
+		}
+	};
+
+	public ref class Maneuver
+	{
+	public:
+		property int BearingAfter;
+		property osrmnet::Coordinate^ Location;
+		property int BearingBefore;
+		property System::String^ Type;
+		property System::String^ Modifier;
+		property System::Nullable<int> Exit;
+
+		Maneuver()
+		{
+		}
 	};
 
 	public ref class RouteStep
 	{
+	public:
 		property double Distance;
 		property double Duration;
 		property System::String^ Name;
-		property System::String^ Pronounciation;
-		property Geometry^ Geometry;
+		property System::String^ Geometry;
 		property System::String^ Mode;
+		property System::Collections::Generic::IList<osrmnet::Intersection^>^ Intersections;
+		property osrmnet::Maneuver^ Maneuver;
+		
+		//Optionals
+		property System::Nullable<double> Weight;
+		property System::Nullable<int> Ref;
+		property System::String^ Pronounciation;
+		property System::String^ Destinations;
+		property System::String^ RotaryName;
+		property System::String^ RotaryPronounciation;
+
+
+
+
+		RouteStep()
+		{
+			Intersections = gcnew System::Collections::Generic::List<osrmnet::Intersection^>();
+			Maneuver = gcnew osrmnet::Maneuver();
+		}
+
 	};
 
 	public ref class RouteLeg

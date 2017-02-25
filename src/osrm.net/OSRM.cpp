@@ -32,9 +32,6 @@ osrmnet::Status osrmnet::Osrm::Route(osrmnet::RouteParameters^ routeParameters, 
 	osrm::Status retVal = osrm::Status::Error;
 	try
 	{
-		//TODO:  0.2.x:  Implement RouteSteps object;
-		if (routeParameters->Steps)
-			throw gcnew System::NotSupportedException("Steps object is not supported currently.");
 		if (routeParameters->IsValid())
 		{
 			retVal = osrmEngine->Route(*routeParameters->InnerObject(), jsonResult);
