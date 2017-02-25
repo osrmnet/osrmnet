@@ -154,26 +154,24 @@ namespace osrm.net.test
         }
 
         [Fact]
-        public void RoutingWithStepsTrue_ShouldThrowNotSupportedException()
+        public void RoutingWithStepsTrue_ShouldReturnValidSteps()
         {
-            // Version < 0.2.x doesn't support steps = true
-            var ex = Assert.Throws<NotSupportedException>(() =>
+            using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
             {
-                using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
+                IEnumerable<RouteResult> routeResults;
+                var result = sut.Route(new RouteParameters()
                 {
-                    IEnumerable<RouteResult> routeResults;
-                    var result = sut.Route(new RouteParameters()
+                    Coordinates = new List<Coordinate>()
                     {
-                        Coordinates = new List<Coordinate>()
-                        {
-                            new Coordinate(28.479065, -81.463945),
-                            new Coordinate(28.598181, -81.207633)
-                        },
-                        Steps = true,
-                    }, out routeResults);
-                }
-            });
-            
+                        new Coordinate(28.479065, -81.463945),
+                        new Coordinate(28.598181, -81.207633)
+                    },
+                    Steps = true,
+                }, out routeResults);
+
+                var steps = routeResults.SelectMany(x => x.Legs).Select(x => x.Steps);
+                Assert.NotEmpty(steps);
+            }
         }
     }
     public class When_UsingInvalidEngineConfig : IClassFixture<InvalidEngineConfig>

@@ -5,10 +5,9 @@
 
 namespace osrmnet
 {
-	public ref struct Coordinate
+	public ref class Coordinate
 	{
 	public:
-		Coordinate(){};
 		Coordinate(double latitude, double longitude)
 		{
 			Lat = latitude;
