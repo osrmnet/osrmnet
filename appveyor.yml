@@ -19,8 +19,12 @@
   # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   cache:
   - .\src\packages -> .\src\**\packages.config
+  - .\src\osrm.net\libosrm -> .\libosrmver.txt
+  - .\src\Test\osrm.net.test\TestData -> .\libosrmver.txt
   before_build:
   - appveyor-retry nuget restore .\src\osrm.net.sln
+  - ps: .\build.ps1
+
   build_script:
   - msbuild .\src\osrm.net.sln /t:Rebuild /p:Configuration=Release;Platform="x64" /m
   - nuget.exe pack .\src\osrm.net\osrm.net.nuspec -NonInteractive  -Version %APPVEYOR_BUILD_VERSION%-pre
