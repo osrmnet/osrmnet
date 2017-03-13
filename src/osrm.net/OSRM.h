@@ -4,12 +4,16 @@
 #pragma once
 
 #include "OsrmFwdDecl.h"
-namespace osrmnet
+
+namespace Osrmnet
 {
 	ref class EngineConfig;
-	ref class RouteParameters;
-	ref class RouteResult;
 
+	namespace Route {
+		ref class RouteParameters;
+		ref class RouteResult;
+	}	
+	
 	public enum class Status
 	{
 		Ok,
@@ -23,7 +27,7 @@ namespace osrmnet
 
 	public: 
 		
-		osrmnet::Status Route(RouteParameters^ routeParameters, [System::Runtime::InteropServices::Out] System::Collections::Generic::IEnumerable<RouteResult^>^% result);
+		Status Route(Route::RouteParameters^ routeParameters, [System::Runtime::InteropServices::Out] Route::RouteResult^% result);
 
 		Osrm(EngineConfig^ engineConfig);
 		~Osrm()

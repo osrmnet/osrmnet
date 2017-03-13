@@ -129,8 +129,11 @@
     <ClInclude Include="OsrmException.h" />
     <ClInclude Include="OsrmFwdDecl.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="RouteParameters.h" />
-    <ClInclude Include="RouteResult.h" />
+    <ClInclude Include="Route\RouteLeg.h" />
+    <ClInclude Include="Route\RouteParameters.h" />
+    <ClInclude Include="Route\RouteResult.h" />
+    <ClInclude Include="Route\RouteWayPoint.h" />
+    <ClInclude Include="Route\RouteItem.h" />
     <ClInclude Include="Stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -139,8 +142,22 @@
     <ClCompile Include="EngineConfig.cpp" />
     <ClCompile Include="OSRM.cpp" />
     <ClCompile Include="OsrmException.cpp" />
-    <ClCompile Include="RouteParameters.cpp" />
-    <ClCompile Include="RouteResult.cpp" />
+    <ClCompile Include="Route\RouteParameters.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Route\RouteItem.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Route\RouteResult.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Route\RouteWayPoint.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>

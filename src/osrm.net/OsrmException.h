@@ -3,7 +3,7 @@
 
 #pragma once
 
-namespace osrmnet 
+namespace Osrmnet 
 {
 	[System::Serializable]
 	public ref class OsrmException : public System::Exception

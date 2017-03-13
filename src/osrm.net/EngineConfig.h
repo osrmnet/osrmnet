@@ -6,7 +6,7 @@
 #include "OsrmFwdDecl.h"
 #include <msclr\marshal_cppstd.h>
 
-namespace osrmnet
+namespace Osrmnet
 {
 	public ref class EngineConfig
 	{
