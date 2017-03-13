@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using osrmnet;
+using Osrmnet;
+using Osrmnet.Route;
 using Xunit;
 
 namespace osrm.net.test
@@ -60,6 +61,13 @@ namespace osrm.net.test
     {
         private readonly OrlandoEngineConfig _orlandoEngineConfig;
 
+        public void AssertValidRoute(RouteResult routeResult)
+        {
+            Assert.NotEmpty(routeResult.Routes);
+            Assert.NotEmpty(routeResult.WayPoints);
+            Assert.Equal(routeResult.Code, "Ok");
+        }
+
         public When_UsingOrlandoDataFile(OrlandoEngineConfig orlandoEngineConfig)
         {
             _orlandoEngineConfig = orlandoEngineConfig;
@@ -79,7 +87,7 @@ namespace osrm.net.test
         {
             using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
             {
-                IEnumerable<RouteResult> routeResults;
+                RouteResult routeResults;
                 // No coordinate specified
                 var result = sut.Route(new RouteParameters(), out routeResults);
                 Assert.Equal(result, Status.Error);
@@ -91,7 +99,7 @@ namespace osrm.net.test
         {
             using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
             {
-                IEnumerable<RouteResult> routeResults;
+                RouteResult routeResult;
                 var result = sut.Route(new RouteParameters()
                 {
                     Coordinates = new List<Coordinate>()
@@ -99,16 +107,18 @@ namespace osrm.net.test
                         new Coordinate(28.479065, -81.463945),
                         new Coordinate(28.598181, -81.207633)
                     },
-                }, out routeResults);
+                }, out routeResult);
                 Assert.Equal(result, Status.Ok);
+                AssertValidRoute(routeResult);
             }
         }
 
-        [Fact]public void RoutingWithAnnotationTrue_ShouldReturnStatusOkWithValidAnnotations()
+        [Fact]
+        public void RoutingWithAnnotationTrue_ShouldReturnStatusOkWithValidAnnotations()
         {
             using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
             {
-                IEnumerable<RouteResult> routeResults;
+                RouteResult routeResult;
                 var result = sut.Route(new RouteParameters()
                 {
                     Coordinates = new List<Coordinate>()
@@ -117,14 +127,16 @@ namespace osrm.net.test
                         new Coordinate(28.598181, -81.207633)
                     },
                     Annotations = true,
-                }, out routeResults);
+                }, out routeResult);
 
-                var annotations = routeResults.SelectMany(x => x.Legs).Select(y => y.Annotation).Where(x => x != null);
+                var annotations = routeResult.Routes.SelectMany(x => x.Legs).Select(y => y.Annotation).Where(x => x != null);
                 var enumerable = annotations as IList<Annotation> ?? annotations.ToList();
                 var distances = enumerable.SelectMany(x => x.Distance);
                 var nodes = enumerable.SelectMany(x => x.Nodes);
 
                 Assert.Equal(result, Status.Ok);
+                AssertValidRoute(routeResult);
+
                 Assert.NotEmpty(distances);
                 Assert.NotEmpty(nodes);
             }
@@ -135,7 +147,7 @@ namespace osrm.net.test
         {
             using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
             {
-                IEnumerable<RouteResult> routeResults;
+                RouteResult routeResult;
                 var result = sut.Route(new RouteParameters()
                 {
                     Coordinates = new List<Coordinate>()
@@ -144,11 +156,12 @@ namespace osrm.net.test
                         new Coordinate(28.598181, -81.207633)
                     },
                     Annotations = true,
-                }, out routeResults);
+                }, out routeResult);
 
-                var annotations = routeResults.SelectMany(x => x.Legs).Select(y => y.Annotation).Where(x => x != null);
+                var annotations = routeResult.Routes.SelectMany(x => x.Legs).Select(y => y.Annotation).Where(x => x != null);
 
                 Assert.Equal(result, Status.Ok);
+                AssertValidRoute(routeResult);
                 Assert.NotEmpty(annotations);
             }
         }
@@ -158,7 +171,7 @@ namespace osrm.net.test
         {
             using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
             {
-                IEnumerable<RouteResult> routeResults;
+                RouteResult routeResult;
                 var result = sut.Route(new RouteParameters()
                 {
                     Coordinates = new List<Coordinate>()
@@ -167,12 +180,100 @@ namespace osrm.net.test
                         new Coordinate(28.598181, -81.207633)
                     },
                     Steps = true,
-                }, out routeResults);
+                }, out routeResult);
 
-                var steps = routeResults.SelectMany(x => x.Legs).Select(x => x.Steps);
+                Assert.Equal(result, Status.Ok);
+                AssertValidRoute(routeResult);
+                var steps = routeResult.Routes.SelectMany(x => x.Legs).SelectMany(x => x.Steps);
                 Assert.NotEmpty(steps);
             }
         }
+
+        [Fact]
+        public void RoutingWithStepsTrue_ShouldReturnEmpty()
+        {
+            using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
+            {
+                RouteResult routeResult;
+                var result = sut.Route(new RouteParameters()
+                {
+                    Coordinates = new List<Coordinate>()
+                    {
+                        new Coordinate(28.479065, -81.463945),
+                        new Coordinate(28.598181, -81.207633)
+                    },
+                    Steps = false,
+                }, out routeResult);
+
+                Assert.Equal(result, Status.Ok);
+                AssertValidRoute(routeResult);
+                var steps = routeResult.Routes.SelectMany(x => x.Legs).SelectMany(x => x.Steps);
+                Assert.Empty(steps);
+            }
+        }
+
+        //[Fact]
+        //public void RoutingWithOverviewFalse_ShouldNotReturnGeometry()
+        //{
+        //    using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
+        //    {
+        //        IEnumerable<RouteResult> routeResults;
+        //        var result = sut.Route(new RouteParameters()
+        //        {
+        //            Coordinates = new List<Coordinate>()
+        //            {
+        //                new Coordinate(28.479065, -81.463945),
+        //                new Coordinate(28.598181, -81.207633)
+        //            },
+        //            Overview = OverviewType.False
+        //        }, out routeResults);
+
+        //        var steps = routeResults.SelectMany(x => x.Legs).SelectMany(x => x.Steps);
+        //        Assert.Empty(steps);
+        //    }
+        //}
+
+        //[Fact]
+        //public void RoutingWithOverviewSimplified_ShouldReturnSimplifiedGeometry()
+        //{
+        //    using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
+        //    {
+        //        IEnumerable<RouteResult> routeResults;
+        //        var result = sut.Route(new RouteParameters()
+        //        {
+        //            Coordinates = new List<Coordinate>()
+        //            {
+        //                new Coordinate(28.479065, -81.463945),
+        //                new Coordinate(28.598181, -81.207633)
+        //            },
+        //            Overview = OverviewType.False
+        //        }, out routeResults);
+
+        //        var steps = routeResults.SelectMany(x => x.Legs).SelectMany(x => x.Steps);
+        //        Assert.Empty(steps);
+        //    }
+        //}
+
+        //[Fact]
+        //public void RoutingWithOverviewFull_ShouldReturnFullGeometry()
+        //{
+        //    using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
+        //    {
+        //        IEnumerable<RouteResult> routeResults;
+        //        var result = sut.Route(new RouteParameters()
+        //        {
+        //            Coordinates = new List<Coordinate>()
+        //            {
+        //                new Coordinate(28.479065, -81.463945),
+        //                new Coordinate(28.598181, -81.207633)
+        //            },
+        //            Overview = OverviewType.Full
+        //        }, out routeResults);
+
+        //        var steps = routeResults.SelectMany(x => x.Legs).SelectMany(x => x.Steps);
+        //        Assert.Empty(steps);
+        //    }
+        //}
     }
     public class When_UsingInvalidEngineConfig : IClassFixture<InvalidEngineConfig>
     {

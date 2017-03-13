@@ -5,10 +5,12 @@
     <ClCompile Include="Coordinate.cpp" />
     <ClCompile Include="EngineConfig.cpp" />
     <ClCompile Include="OSRM.cpp" />
-    <ClCompile Include="RouteParameters.cpp" />
-    <ClCompile Include="RouteResult.cpp" />
     <ClCompile Include="Stdafx.cpp" />
     <ClCompile Include="OsrmException.cpp" />
+    <ClCompile Include="Route\RouteParameters.cpp" />
+    <ClCompile Include="Route\RouteItem.cpp" />
+    <ClCompile Include="Route\RouteResult.cpp" />
+    <ClCompile Include="Route\RouteWayPoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Coordinate.h" />
@@ -16,10 +18,13 @@
     <ClInclude Include="OSRM.h" />
     <ClInclude Include="OsrmFwdDecl.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="RouteParameters.h" />
-    <ClInclude Include="RouteResult.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="OsrmException.h" />
+    <ClInclude Include="Route\RouteLeg.h" />
+    <ClInclude Include="Route\RouteWayPoint.h" />
+    <ClInclude Include="Route\RouteParameters.h" />
+    <ClInclude Include="Route\RouteItem.h" />
+    <ClInclude Include="Route\RouteResult.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

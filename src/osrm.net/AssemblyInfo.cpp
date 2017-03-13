@@ -14,11 +14,11 @@ using namespace System::Security::Permissions;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-[assembly:AssemblyTitleAttribute(L"osrmnet")];
-[assembly:AssemblyDescriptionAttribute(L"osrmnet .net wrapper for OSRM library")];
+[assembly:AssemblyTitleAttribute(L"Osrmnet")];
+[assembly:AssemblyDescriptionAttribute(L"Osrmnet .net wrapper for OSRM library")];
 [assembly:AssemblyConfigurationAttribute(L"")];
 [assembly:AssemblyCompanyAttribute(L"Surya Suluh")];
-[assembly:AssemblyProductAttribute(L"osrmnet")];
+[assembly:AssemblyProductAttribute(L"Osrmnet")];
 [assembly:AssemblyCopyrightAttribute(L"Copyright (c)  2016")];
 [assembly:AssemblyTrademarkAttribute(L"")];
 [assembly:AssemblyCultureAttribute(L"")];

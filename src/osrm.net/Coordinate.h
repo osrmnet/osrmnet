@@ -3,7 +3,7 @@
 
 #pragma once
 
-namespace osrmnet
+namespace Osrmnet
 {
 	public ref class Coordinate
 	{
