@@ -6,6 +6,7 @@
 #include "RouteResult.h"
 #include "RouteParameters.h"
 #include "RouteItem.h"
+#include "RouteWayPoint.h"
 
 #include "osrm/json_container.hpp"
 #include "engine/polyline_compressor.hpp"
@@ -31,7 +32,12 @@ RouteResult^ RouteResult::FromJsonObject(const osrm::util::json::Object& jsonObj
 	}
 
 	// Process waypoint
-
+	const auto &routeWayPoints = jsonObject.values.at("waypoints").get<Array>().values;
+	for (const auto &wayPointJson : routeWayPoints)
+	{
+		const auto &wayPointObj = wayPointJson.get<osrm::util::json::Object>();
+		result->WayPoints->Add(RouteWayPoint::FromJsonObject(wayPointObj));
+	}
 
 	return result;
 }

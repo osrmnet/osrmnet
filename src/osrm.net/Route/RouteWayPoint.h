@@ -15,12 +15,11 @@ namespace Osrmnet {
 		{
 		public:
 			property System::String^ Hint;
-			property double Distance;
 			property System::String^ Name;
 			property Coordinate^ Location;
 
 		internal:
-			RouteWayPoint^ FromJsonObject(const osrm::util::json::Object& jsonObject, RouteParameters^ routeParams);
+			static RouteWayPoint^ FromJsonObject(const osrm::util::json::Object& jsonObject);
 		};
 	}
 }

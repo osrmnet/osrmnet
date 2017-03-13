@@ -61,6 +61,13 @@ namespace osrm.net.test
     {
         private readonly OrlandoEngineConfig _orlandoEngineConfig;
 
+        public void AssertValidRoute(RouteResult routeResult)
+        {
+            Assert.NotEmpty(routeResult.Routes);
+            Assert.NotEmpty(routeResult.WayPoints);
+            Assert.Equal(routeResult.Code, "Ok");
+        }
+
         public When_UsingOrlandoDataFile(OrlandoEngineConfig orlandoEngineConfig)
         {
             _orlandoEngineConfig = orlandoEngineConfig;
@@ -92,7 +99,7 @@ namespace osrm.net.test
         {
             using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
             {
-                RouteResult routeResults;
+                RouteResult routeResult;
                 var result = sut.Route(new RouteParameters()
                 {
                     Coordinates = new List<Coordinate>()
@@ -100,8 +107,9 @@ namespace osrm.net.test
                         new Coordinate(28.479065, -81.463945),
                         new Coordinate(28.598181, -81.207633)
                     },
-                }, out routeResults);
+                }, out routeResult);
                 Assert.Equal(result, Status.Ok);
+                AssertValidRoute(routeResult);
             }
         }
 
@@ -110,7 +118,7 @@ namespace osrm.net.test
         {
             using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
             {
-                RouteResult routeResults;
+                RouteResult routeResult;
                 var result = sut.Route(new RouteParameters()
                 {
                     Coordinates = new List<Coordinate>()
@@ -119,14 +127,16 @@ namespace osrm.net.test
                         new Coordinate(28.598181, -81.207633)
                     },
                     Annotations = true,
-                }, out routeResults);
+                }, out routeResult);
 
-                var annotations = routeResults.Routes.SelectMany(x => x.Legs).Select(y => y.Annotation).Where(x => x != null);
+                var annotations = routeResult.Routes.SelectMany(x => x.Legs).Select(y => y.Annotation).Where(x => x != null);
                 var enumerable = annotations as IList<Annotation> ?? annotations.ToList();
                 var distances = enumerable.SelectMany(x => x.Distance);
                 var nodes = enumerable.SelectMany(x => x.Nodes);
 
                 Assert.Equal(result, Status.Ok);
+                AssertValidRoute(routeResult);
+
                 Assert.NotEmpty(distances);
                 Assert.NotEmpty(nodes);
             }
@@ -137,7 +147,7 @@ namespace osrm.net.test
         {
             using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
             {
-                RouteResult routeResults;
+                RouteResult routeResult;
                 var result = sut.Route(new RouteParameters()
                 {
                     Coordinates = new List<Coordinate>()
@@ -146,11 +156,12 @@ namespace osrm.net.test
                         new Coordinate(28.598181, -81.207633)
                     },
                     Annotations = true,
-                }, out routeResults);
+                }, out routeResult);
 
-                var annotations = routeResults.Routes.SelectMany(x => x.Legs).Select(y => y.Annotation).Where(x => x != null);
+                var annotations = routeResult.Routes.SelectMany(x => x.Legs).Select(y => y.Annotation).Where(x => x != null);
 
                 Assert.Equal(result, Status.Ok);
+                AssertValidRoute(routeResult);
                 Assert.NotEmpty(annotations);
             }
         }
@@ -160,7 +171,7 @@ namespace osrm.net.test
         {
             using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
             {
-                RouteResult routeResults;
+                RouteResult routeResult;
                 var result = sut.Route(new RouteParameters()
                 {
                     Coordinates = new List<Coordinate>()
@@ -169,9 +180,11 @@ namespace osrm.net.test
                         new Coordinate(28.598181, -81.207633)
                     },
                     Steps = true,
-                }, out routeResults);
+                }, out routeResult);
 
-                var steps = routeResults.Routes.SelectMany(x => x.Legs).SelectMany(x => x.Steps);
+                Assert.Equal(result, Status.Ok);
+                AssertValidRoute(routeResult);
+                var steps = routeResult.Routes.SelectMany(x => x.Legs).SelectMany(x => x.Steps);
                 Assert.NotEmpty(steps);
             }
         }
@@ -181,7 +194,7 @@ namespace osrm.net.test
         {
             using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
             {
-                RouteResult routeResults;
+                RouteResult routeResult;
                 var result = sut.Route(new RouteParameters()
                 {
                     Coordinates = new List<Coordinate>()
@@ -190,9 +203,11 @@ namespace osrm.net.test
                         new Coordinate(28.598181, -81.207633)
                     },
                     Steps = false,
-                }, out routeResults);
+                }, out routeResult);
 
-                var steps = routeResults.Routes.SelectMany(x => x.Legs).SelectMany(x => x.Steps);
+                Assert.Equal(result, Status.Ok);
+                AssertValidRoute(routeResult);
+                var steps = routeResult.Routes.SelectMany(x => x.Legs).SelectMany(x => x.Steps);
                 Assert.Empty(steps);
             }
         }
