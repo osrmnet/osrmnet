@@ -88,28 +88,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="TestData\Orlando.osrm" />
-    <None Include="TestData\Orlando.osrm.core" />
-    <None Include="TestData\Orlando.osrm.datasource_indexes" />
-    <None Include="TestData\Orlando.osrm.datasource_names" />
-    <None Include="TestData\Orlando.osrm.ebg" />
-    <None Include="TestData\Orlando.osrm.edges" />
-    <None Include="TestData\Orlando.osrm.edge_penalties" />
-    <None Include="TestData\Orlando.osrm.edge_segment_lookup" />
-    <None Include="TestData\Orlando.osrm.enw" />
-    <None Include="TestData\Orlando.osrm.fileIndex" />
-    <None Include="TestData\Orlando.osrm.geometry" />
-    <None Include="TestData\Orlando.osrm.hsgr" />
-    <None Include="TestData\Orlando.osrm.icd" />
-    <None Include="TestData\Orlando.osrm.level" />
-    <None Include="TestData\Orlando.osrm.names" />
-    <None Include="TestData\Orlando.osrm.nodes" />
-    <None Include="TestData\Orlando.osrm.properties" />
-    <None Include="TestData\Orlando.osrm.ramIndex" />
-    <None Include="TestData\Orlando.osrm.restrictions" />
-    <None Include="TestData\Orlando.osrm.timestamp" />
-    <None Include="TestData\Orlando.osrm.tld" />
-    <None Include="TestData\Orlando.osrm.tls" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
