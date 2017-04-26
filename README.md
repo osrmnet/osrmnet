@@ -11,6 +11,9 @@ Contribution is always welcome, please email me:  ssuluh@yahoo.com
 # Important
 Please read the OSRM Wiki:  https://github.com/Project-OSRM/osrm-backend/wiki/Windows-Compilation.
 Ensure the correct MS C/C++ runtime library version installed and valid temp directory specified in your .stxxl.txt before you run osrm-extract and other osrm binaries.
+To build locally:
+1. Open Powershell code and run .\build.ps1
+2. Use msbuild.exe or Visual Studio 2015/2017 to build the project. (If you use VS 2017, make sure you don't upgrade the project).
 
 # Status
 This project is still at pre-release state.  Currently there's only limited implementation for OSRM.Route().
