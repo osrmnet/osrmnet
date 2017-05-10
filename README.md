@@ -8,7 +8,7 @@ Our design goal is to follow as close as possible the OSRM project APIs and data
 
 Contribution is always welcome, please email me:  ssuluh@yahoo.com
 
-# Important
+# Build Locally
 Please read the OSRM Wiki:  https://github.com/Project-OSRM/osrm-backend/wiki/Windows-Compilation.
 Ensure the correct MS C/C++ runtime library version installed and valid temp directory specified in your .stxxl.txt before you run osrm-extract and other osrm binaries.
 To build locally:
