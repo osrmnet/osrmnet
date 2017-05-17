@@ -1,0 +1,2 @@
+src/Test/osrm.net.test/TestData/** filter=lfs diff=lfs merge=lfs -text
+src/osrm.net/libosrm/** filter=lfs diff=lfs merge=lfs -text
