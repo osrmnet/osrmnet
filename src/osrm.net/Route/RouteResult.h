@@ -8,7 +8,7 @@ using namespace System::Collections::Generic;
 
 namespace Osrmnet {
 	ref class Coordinate;
-	
+
 	namespace Route
 	{
 		ref class RouteItem;

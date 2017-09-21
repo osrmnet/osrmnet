@@ -25,6 +25,7 @@
     <ClInclude Include="Route\RouteParameters.h" />
     <ClInclude Include="Route\RouteItem.h" />
     <ClInclude Include="Route\RouteResult.h" />
+    <ClInclude Include="Geometry.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

@@ -126,7 +126,7 @@ namespace osrm.net.test
                         new Coordinate(28.479065, -81.463945),
                         new Coordinate(28.598181, -81.207633)
                     },
-                    Annotations = true,
+                    Annotations = AnnotationsType.All,
                 }, out routeResult);
 
                 var annotations = routeResult.Routes.SelectMany(x => x.Legs).Select(y => y.Annotation).Where(x => x != null);
@@ -155,7 +155,7 @@ namespace osrm.net.test
                         new Coordinate(28.479065, -81.463945),
                         new Coordinate(28.598181, -81.207633)
                     },
-                    Annotations = true,
+                    Annotations = AnnotationsType.All,
                 }, out routeResult);
 
                 var annotations = routeResult.Routes.SelectMany(x => x.Legs).Select(y => y.Annotation).Where(x => x != null);
