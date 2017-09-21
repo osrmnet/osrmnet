@@ -3,24 +3,32 @@
 
 #pragma once
 #include "..\OsrmFwdDecl.h"
+
 using namespace System::Collections::Generic;
 
 namespace Osrmnet {
 	ref class Coordinate;
+	ref class Geometry;
 
 	namespace Route {
 		public ref class Annotation
 		{
 		public:
-			property IList<double>^ Distance;
+			property IList<double>^ Speed;
 			property IList<double>^ Duration;
 			property IList<long long>^ Nodes;
+			property IList<double>^ Distance;
+			property IList<int>^ Datasources;
+			property IList<double>^ Weight;
 
 			Annotation()
 			{
-				Distance = gcnew List<double>();
+				Speed = gcnew List<double>();
 				Duration = gcnew List<double>();
 				Nodes = gcnew List<long long>();
+				Distance = gcnew List<double>();
+				Datasources = gcnew List<int>();
+				Weight = gcnew List<double>();
 			}
 		};
 
@@ -44,13 +52,13 @@ namespace Osrmnet {
 			property IList<System::Boolean>^ Entry;
 			property IList<int>^ Bearings;
 			property Coordinate^ Location;
-			property IList<System::String^>^ Lanes;
+			property IList<Lane^>^ Lanes;
 
 			Intersection()
 			{
 				Entry = gcnew List<System::Boolean>();
 				Bearings = gcnew List<int>();
-				Lanes = gcnew List<System::String^>();
+				Lanes = gcnew List<Lane^>();
 			}
 		};
 
@@ -75,7 +83,7 @@ namespace Osrmnet {
 			property double Distance;
 			property double Duration;
 			property System::String^ Name;
-			property System::String^ Geometry;
+			property Geometry^ Geometry;
 			property System::String^ Mode;
 			property IList<Intersection^>^ Intersections;
 			property Maneuver^ Maneuver;
@@ -91,9 +99,7 @@ namespace Osrmnet {
 			RouteStep()
 			{
 				Intersections = gcnew List<Intersection^>();
-				Maneuver = gcnew Osrmnet::Route::Maneuver();
 			}
-
 		};
 
 		public ref class RouteLeg

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -15,20 +15,20 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>osrmnet</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CLRSupport>true</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CLRSupport>true</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -49,7 +49,7 @@
     <IntDir>.\intermediate\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>.\bin\$(Platform)\$(Configuration)\</OutDir>
     <EnableManagedIncrementalBuild>false</EnableManagedIncrementalBuild>
-    <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\MixedRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>MixedRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -57,7 +57,7 @@
     <OutDir>.\bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>.\intermediate\$(Platform)\$(Configuration)\</IntDir>
     <EnableManagedIncrementalBuild>false</EnableManagedIncrementalBuild>
-    <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\MixedRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>MixedRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -66,7 +66,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WIN32;_WINDOWS;NDEBUG;_LARGEFILE_SOURCE;_FILE_OFFSET_BITS=64;NOMINMAX;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;BOOST_LIB_DIAGNOSTIC;_USE_MATH_DEFINES;_WIN32_WINNT=0x0501;XML_STATIC;BOOST_SPIRIT_USE_PHOENIX_V3;BOOST_RESULT_OF_USE_DECLTYPE;BOOST_FILESYSTEM_NO_DEPRECATED;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>libosrm\include;libosrm\third_party;libosrm\third_party\libosmium\include;libosrm\osrm-deps\boost\include\boost-1_62;libosrm\osrm-deps\tbb\include;libosrm\osrm-deps\libs\include\luabind;libosrm\osrm-deps\libs\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>libosrm\include;libosrm\third_party;libosrm\third_party\libosmium\include;libosrm\osrm-deps\boost\include\boost-1_62;libosrm\osrm-deps\tbb\include;libosrm\osrm-deps\libs\include\luabind;libosrm\osrm-deps\libs\include;libosrm\osrm-deps\mapbox\variant\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -94,7 +94,7 @@
       <WarningLevel>Level4</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WIN32;_WINDOWS;NDEBUG;_LARGEFILE_SOURCE;_FILE_OFFSET_BITS=64;NOMINMAX;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;BOOST_LIB_DIAGNOSTIC;_USE_MATH_DEFINES;_WIN32_WINNT=0x0501;XML_STATIC;BOOST_SPIRIT_USE_PHOENIX_V3;BOOST_RESULT_OF_USE_DECLTYPE;BOOST_FILESYSTEM_NO_DEPRECATED;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>libosrm\include;libosrm\third_party;libosrm\third_party\libosmium\include;libosrm\osrm-deps\boost\include\boost-1_62;libosrm\osrm-deps\tbb\include;libosrm\osrm-deps\libs\include\luabind;libosrm\osrm-deps\libs\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>libosrm\include;libosrm\third_party;libosrm\third_party\libosmium\include;libosrm\osrm-deps\boost\include\boost-1_62;libosrm\osrm-deps\tbb\include;libosrm\osrm-deps\libs\include\luabind;libosrm\osrm-deps\libs\include;libosrm\osrm-deps\mapbox\variant\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClInclude Include="Coordinate.h" />
     <ClInclude Include="EngineConfig.h" />
+    <ClInclude Include="Geometry.h" />
     <ClInclude Include="OSRM.h" />
     <ClInclude Include="OsrmException.h" />
     <ClInclude Include="OsrmFwdDecl.h" />

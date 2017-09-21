@@ -39,21 +39,21 @@ void RouteParameters::Steps::set(bool value)
 {
 	routeParameters->steps = value;
 }
-bool RouteParameters::Alternatives::get()
+unsigned int RouteParameters::NumberOfAlternatives::get()
 {
-	return routeParameters->alternatives;
+	return routeParameters->number_of_alternatives;
 }
-void RouteParameters::Alternatives::set(bool value)
+void RouteParameters::NumberOfAlternatives::set(unsigned int value)
 {
-	routeParameters->alternatives = value;
+	routeParameters->number_of_alternatives = value;
 }
-bool RouteParameters::Annotations::get()
+AnnotationsType RouteParameters::Annotations::get()
 {
-	return routeParameters->annotations;
+	return static_cast<AnnotationsType>(routeParameters->annotations_type);
 }
-void RouteParameters::Annotations::set(bool value)
+void RouteParameters::Annotations::set(AnnotationsType value)
 {
-	routeParameters->annotations = value;
+	routeParameters->annotations_type = static_cast<osrm::engine::api::RouteParameters::AnnotationsType>(value);
 }
 GeometriesType RouteParameters::Geometries::get()
 {
@@ -85,8 +85,12 @@ void RouteParameters::Coordinates::set(System::Collections::Generic::IList<Coord
 	routeParameters->coordinates.clear();
 	for each (Coordinate^ coordinate in value)
 	{
-		routeParameters->coordinates.push_back({osrm::util::FloatLongitude{coordinate->Long}, osrm::util::FloatLatitude{coordinate->Lat}});
+		routeParameters->coordinates.push_back({ osrm::util::FloatLongitude{ coordinate->Long }, osrm::util::FloatLatitude{ coordinate->Lat } });
 	}
+}
+void RouteParameters::GenerateHints::set(bool value)
+{
+	routeParameters->generate_hints = value;
 }
 
 bool RouteParameters::IsValid()

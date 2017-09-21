@@ -45,6 +45,7 @@
       <Filter>Route</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="Geometry.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

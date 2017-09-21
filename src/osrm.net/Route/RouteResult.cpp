@@ -18,19 +18,15 @@ using namespace osrm::util::json;
 
 RouteResult^ RouteResult::FromJsonObject(const osrm::util::json::Object& jsonObject, RouteParameters^ routeParams)
 {
-	auto result = gcnew RouteResult();
-
-	// Code
-	auto codeJson = jsonObject.values.at("code").get<String>().value;
-	result->Code = Osrmnet::Utils::ConvertFromUtf8(codeJson);
-	
-	// Process Routes
-	const auto &routesJson = jsonObject.values.at("routes").get<Array>().values;
-	for (const auto &route : routesJson)
+	/*
 	{
-		const auto &routeObj = route.get<osrm::util::json::Object>();
-		result->Routes->Add(RouteItem::FromJsonObject(routeObj, routeParams));
+	"waypoints": [ { ... } ],
+	"routes": [ { ... } ],
+	"code": "Ok"
 	}
+	*/
+
+	auto result = gcnew RouteResult();
 
 	// Process waypoint
 	const auto &routeWayPoints = jsonObject.values.at("waypoints").get<Array>().values;
@@ -39,6 +35,18 @@ RouteResult^ RouteResult::FromJsonObject(const osrm::util::json::Object& jsonObj
 		const auto &wayPointObj = wayPointJson.get<osrm::util::json::Object>();
 		result->WayPoints->Add(RouteWayPoint::FromJsonObject(wayPointObj));
 	}
+
+	// Process Routes
+	const auto &routesJson = jsonObject.values.at("routes").get<Array>().values;
+	for (const auto &route : routesJson)
+	{
+		const auto &routeObj = route.get<osrm::util::json::Object>();
+		result->Routes->Add(RouteItem::FromJsonObject(routeObj, routeParams));
+	}
+
+	// Code
+	auto codeJson = jsonObject.values.at("code").get<String>().value;
+	result->Code = Osrmnet::Utils::ConvertFromUtf8(codeJson);
 
 	return result;
 }
