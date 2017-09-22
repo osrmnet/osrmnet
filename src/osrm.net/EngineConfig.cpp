@@ -9,6 +9,8 @@ using namespace Osrmnet;
 
 EngineConfig::EngineConfig() : engineConfig(new osrm::engine::EngineConfig())
 {
+	// Default shared memory is off
+	this->UseSharedMemory = false;
 }
 
 EngineConfig::~EngineConfig()
