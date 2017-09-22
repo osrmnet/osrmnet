@@ -8,9 +8,8 @@ using namespace System::Collections::Generic;
 
 namespace Osrmnet {
 	ref class Coordinate;
-}
+	ref class Geometry;
 
-namespace Osrmnet {
 	namespace Route
 	{
 		enum class GeometriesType;
@@ -23,7 +22,9 @@ namespace Osrmnet {
 		public:
 			property double Distance;
 			property double Duration;
-			property System::String^ Geometry;
+			property double Weight;
+			property System::String^ WeightName;
+			property Geometry^ Geometry;
 			property IList<RouteLeg^>^ Legs;
 
 			RouteItem()

@@ -18,6 +18,14 @@ using namespace osrm::util::json;
 
 RouteResult^ RouteResult::FromJsonObject(const osrm::util::json::Object& jsonObject, RouteParameters^ routeParams)
 {
+	/*
+	{
+	"waypoints": [ { ... } ],
+	"routes": [ { ... } ],
+	"code": "Ok"
+	}
+	*/
+
 	auto result = gcnew RouteResult();
 
 	// Code

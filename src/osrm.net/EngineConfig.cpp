@@ -25,7 +25,7 @@ EngineConfig::!EngineConfig()
 
 System::String^ EngineConfig::StorageConfig::get()
 {
-	return { gcnew System::String(engineConfig->storage_config.datasource_names_path.c_str()) };
+	return { gcnew System::String(engineConfig->storage_config.base_path.c_str()) };
 }
 
 void EngineConfig::StorageConfig::set(System::String^ value)
