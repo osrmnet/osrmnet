@@ -4,11 +4,14 @@
 #pragma once
 
 #include "..\OsrmFwdDecl.h"
+#include <msclr\marshal_cppstd.h>
+#include "..\Approach.h"
 
 using namespace System::Collections::Generic;
 
 namespace Osrmnet {
 	ref class Coordinate;
+	ref class Bearing;
 }
 
 namespace Osrmnet {
@@ -47,8 +50,13 @@ namespace Osrmnet {
 			property OverviewType Overview { OverviewType get(); void set(OverviewType); }
 			property bool ContinueStraight { bool get(); void set(bool); }
 			property IList<Coordinate^>^ Coordinates { void set(IList<Coordinate^>^); }
+			//property IList<System::String^>^ Hints { void set(IList<System::String^>^); }
+			property IList<double>^ Radiuses { void set(IList<double>^); }
+			property IList<Bearing^>^ Bearings { void set(IList<Bearing^>^); }
+			property IList<Approach>^ Approaches { void set(IList<Approach>^); }
 			property bool GenerateHints { void set(bool); }
-
+			property  IList<System::String^>^ Exclude { void set(IList<System::String^>^); }
+			
 			bool IsValid();
 
 			RouteParameters();
