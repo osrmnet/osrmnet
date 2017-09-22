@@ -2,6 +2,7 @@
 // Licensed under the MIT License.  See included LICENSE in the project root for license information.
 
 #include "..\Stdafx.h"
+#include "..\Utils.h"
 
 #include "RouteResult.h"
 #include "RouteParameters.h"
@@ -21,7 +22,7 @@ RouteResult^ RouteResult::FromJsonObject(const osrm::util::json::Object& jsonObj
 
 	// Code
 	auto codeJson = jsonObject.values.at("code").get<String>().value;
-	result->Code = msclr::interop::marshal_as<System::String^>(codeJson);
+	result->Code = Osrmnet::Utils::ConvertFromUtf8(codeJson);
 	
 	// Process Routes
 	const auto &routesJson = jsonObject.values.at("routes").get<Array>().values;
