@@ -50,10 +50,10 @@ namespace Osrmnet {
 			property OverviewType Overview { OverviewType get(); void set(OverviewType); }
 			property bool ContinueStraight { bool get(); void set(bool); }
 			property IList<Coordinate^>^ Coordinates { void set(IList<Coordinate^>^); }
-			//property IList<System::String^>^ Hints { void set(IList<System::String^>^); }
-			property IList<double>^ Radiuses { void set(IList<double>^); }
+			property IList<System::String^>^ Hints { void set(IList<System::String^>^); }
+			property IList<System::Nullable<double>>^ Radiuses { void set(IList<System::Nullable<double>>^); }
 			property IList<Bearing^>^ Bearings { void set(IList<Bearing^>^); }
-			property IList<Approach>^ Approaches { void set(IList<Approach>^); }
+			property IList<System::Nullable<Approach>>^ Approaches { void set(IList<System::Nullable<Approach>>^); }
 			property bool GenerateHints { void set(bool); }
 			property  IList<System::String^>^ Exclude { void set(IList<System::String^>^); }
 			
