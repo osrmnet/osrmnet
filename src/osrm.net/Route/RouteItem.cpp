@@ -29,24 +29,25 @@ Geometry^ ProcessGeometry(const Value jsonGeometry, GeometriesType geometries)
 	case GeometriesType::Polyline6:
 	{
 		const auto encoded = jsonGeometry.get<osrm::json::String>().value;
-		result->Encoded = msclr::interop::marshal_as<System::String^>(encoded);
+		result->Encoded = Osrmnet::Utils::ConvertFromUtf8(encoded);
 		break;
 	}
 	case GeometriesType::GeoJSON:
 	{
 		/*
 		{
-		"type": "LineString",
-		"coordinates": [
-		[
-		2.349566,
-		48.82971
-		]
-		]
+			"type": "LineString",
+			"coordinates": [
+				[
+					2.349566,
+					48.82971
+				]
+			]
 		}
 		*/
 		const auto &geometryObject = jsonGeometry.get<Object>();
-		result->Type = msclr::interop::marshal_as<System::String^>(geometryObject.values.at("type").get<String>().value);
+		const auto type = geometryObject.values.at("type").get<String>().value;
+		result->Type = Osrmnet::Utils::ConvertFromUtf8(type);
 		const auto& coordinates = geometryObject.values.at("coordinates").get<osrm::json::Array>().values;
 		for (const auto &coordinate : coordinates)
 		{
@@ -88,25 +89,25 @@ Intersection^ ProcessIntersection(const Value jsonIntersection)
 {
 	/*
 	{
-	"location": [
-	2.346587,
-	48.825755
-	],
-	"in": 0,
-	"bearings": [
-	0,
-	105,
-	180,
-	285
-	],
-	"entry": [
-	false,
-	true,
-	true,
-	true
-	],
-	"out": 1
-	},
+		"location": [
+			2.346587,
+			48.825755
+		],
+		"in": 0,
+		"bearings": [
+			0,
+			105,
+			180,
+			285
+		],
+		"entry": [
+			false,
+			true,
+			true,
+			true
+		],
+		"out": 1
+	}
 	*/
 
 	auto result = gcnew Intersection();
@@ -369,7 +370,7 @@ RouteItem^ RouteItem::FromJsonObject(const osrm::json::Object& jsonRoute, RouteP
 	result->Duration = jsonRoute.values.at("duration").get<Number>().value;
 	result->Weight = jsonRoute.values.at("weight").get<osrm::json::Number>().value;
 	const auto weightName = jsonRoute.values.at("weight_name").get<String>().value;
-	result->WeightName = Osrmnet::Utils::ConvertFromUtf8<System::String^>(weightName);
+	result->WeightName = msclr::interop::marshal_as<System::String^>(weightName);
 	if (routeParameters->Overview != OverviewType::False)
 		result->Geometry = ProcessGeometry(jsonRoute.values.at("geometry"), routeParameters->Geometries);
 
