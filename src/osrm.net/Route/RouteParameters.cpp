@@ -3,6 +3,7 @@
 
 #include "..\stdafx.h"
 #include "..\Coordinate.h"
+#include "..\Bearing.h"
 
 #include "RouteParameters.h"
 
@@ -88,9 +89,57 @@ void RouteParameters::Coordinates::set(System::Collections::Generic::IList<Coord
 		routeParameters->coordinates.push_back({ osrm::util::FloatLongitude{ coordinate->Long }, osrm::util::FloatLatitude{ coordinate->Lat } });
 	}
 }
+//void RouteParameters::Hints::set(System::Collections::Generic::IList<System::String^>^ value)
+//{
+//	// Copy array value
+//	routeParameters->hints.clear();
+//	for each (System::String^ hint in value)
+//	{
+//		routeParameters->hints; // Need conversion to osrm::engine::Hint
+//	}
+//}
+void RouteParameters::Radiuses::set(System::Collections::Generic::IList<double>^ value)
+{
+	// Copy array value
+	routeParameters->radiuses.clear();
+	for each (double radius in value)
+	{
+		routeParameters->radiuses.push_back(radius);
+	}
+}
+void RouteParameters::Bearings::set(System::Collections::Generic::IList<Bearing^>^ value)
+{
+	// Copy array value
+	routeParameters->radiuses.clear();
+	for each (Bearing^ bearing in value)
+	{
+		osrm::engine::Bearing osrmBearing;
+		osrmBearing.bearing = bearing->Value;
+		osrmBearing.range = bearing->Range;
+		routeParameters->bearings.push_back(osrmBearing);
+	}
+}
+void RouteParameters::Approaches::set(System::Collections::Generic::IList<Approach>^ value)
+{
+	// Copy array value
+	routeParameters->approaches.clear();
+	for each (Approach approach in value)
+	{
+		routeParameters->approaches.push_back(static_cast<osrm::engine::Approach>(approach));
+	}
+}
 void RouteParameters::GenerateHints::set(bool value)
 {
 	routeParameters->generate_hints = value;
+}
+void RouteParameters::Exclude::set(System::Collections::Generic::IList<System::String^>^ value)
+{
+	// Copy array value
+	routeParameters->exclude.clear();
+	for each (System::String^ exclude in value)
+	{
+		routeParameters->exclude.push_back(msclr::interop::marshal_as<std::string>(exclude));
+	}
 }
 
 bool RouteParameters::IsValid()

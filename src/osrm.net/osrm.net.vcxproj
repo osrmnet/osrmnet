@@ -83,7 +83,7 @@
       <AdditionalLibraryDirectories>libosrm\lib;libosrm\osrm-deps\boost\lib;libosrm\osrm-deps\libs\lib;libosrm\osrm-deps\tbb\lib\intel64\vc14;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <FullProgramDatabaseFile>true</FullProgramDatabaseFile>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -123,9 +123,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Approach.h" />
     <ClInclude Include="Coordinate.h" />
     <ClInclude Include="EngineConfig.h" />
     <ClInclude Include="Geometry.h" />
+    <ClInclude Include="Bearing.h" />
     <ClInclude Include="OSRM.h" />
     <ClInclude Include="OsrmException.h" />
     <ClInclude Include="OsrmFwdDecl.h" />
