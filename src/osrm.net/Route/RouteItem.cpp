@@ -4,11 +4,14 @@
 
 #include "..\stdafx.h"
 #include "..\Coordinate.h"
+#include "..\Utils.h"
+
 #include "..\Geometry.h"
 #include "RouteLeg.h"
 #include "RouteParameters.h"
 #include "RouteItem.h"
 #include "RouteWayPoint.h"
+
 
 #include "osrm/json_container.hpp"
 #include "engine/polyline_compressor.hpp"
@@ -175,14 +178,14 @@ Maneuver^ ProcessManeuver(Object jsonManeuver)
 	auto result = gcnew Maneuver();
 	result->BearingAfter = System::Convert::ToInt32(jsonManeuver.values.at("bearing_after").get<Number>().value);
 	result->BearingBefore = System::Convert::ToInt32(jsonManeuver.values.at("bearing_before").get<Number>().value);
-	result->Type = msclr::interop::marshal_as<System::String^>(jsonManeuver.values.at("type").get<String>().value);
+	result->Type = Osrmnet::Utils::ConvertFromUtf8(jsonManeuver.values.at("type").get<String>().value);
 	const auto &location = jsonManeuver.values.at("location").get<Array>().values;
 	result->Location = gcnew Osrmnet::Coordinate(location[1].get<Number>().value, location[0].get<Number>().value);
 
 	// Optional Modifier property
 	if (jsonManeuver.values.count("modifier"))
 	{
-		result->Modifier = msclr::interop::marshal_as<System::String^>(jsonManeuver.values.at("modifier").get<String>().value);
+		result->Modifier = Osrmnet::Utils::ConvertFromUtf8(jsonManeuver.values.at("modifier").get<String>().value);
 	}
 
 	// Optional Exit property
@@ -217,10 +220,10 @@ RouteStep^ ProcessStep(Value jsonStep, RouteParameters^ routeParameters)
 	const auto mode = stepObject.values.at("mode").get<String>().value;
 
 	routeStep->Geometry = ProcessGeometry(stepObject.values.at("geometry"), routeParameters->Geometries);
-	routeStep->Mode = msclr::interop::marshal_as<System::String^>(mode);
+	routeStep->Mode = Osrmnet::Utils::ConvertFromUtf8(mode);
 	routeStep->Duration = duration;
 	routeStep->Distance = distance;
-	routeStep->Name = msclr::interop::marshal_as<System::String^>(name);
+	routeStep->Name = Osrmnet::Utils::ConvertFromUtf8(name);
 
 	// Create maneuver
 	routeStep->Maneuver = ProcessManeuver(stepObject.values.at("maneuver").get<Object>());
@@ -240,22 +243,22 @@ RouteStep^ ProcessStep(Value jsonStep, RouteParameters^ routeParameters)
 
 	if (stepObject.values.count("pronounciation") > 0)
 	{
-		routeStep->Pronounciation = msclr::interop::marshal_as<System::String^>(stepObject.values.at("pronounciation").get<String>().value);
+		routeStep->Pronounciation = Osrmnet::Utils::ConvertFromUtf8(stepObject.values.at("pronounciation").get<String>().value);
 	}
 
 	if (stepObject.values.count("destinations") > 0)
 	{
-		routeStep->Destinations = msclr::interop::marshal_as<System::String^>(stepObject.values.at("destinations").get<String>().value);
+		routeStep->Destinations = Osrmnet::Utils::ConvertFromUtf8(stepObject.values.at("destinations").get<String>().value);
 	}
 
 	if (stepObject.values.count("rotary_name") > 0)
 	{
-		routeStep->RotaryName = msclr::interop::marshal_as<System::String^>(stepObject.values.at("rotary_name").get<String>().value);
+		routeStep->RotaryName = Osrmnet::Utils::ConvertFromUtf8(stepObject.values.at("rotary_name").get<String>().value);
 	}
 
 	if (stepObject.values.count("rotary_pronounciation") > 0)
 	{
-		routeStep->RotaryName = msclr::interop::marshal_as<System::String^>(stepObject.values.at("rotary_pronounciation").get<String>().value);
+		routeStep->RotaryName = Osrmnet::Utils::ConvertFromUtf8(stepObject.values.at("rotary_pronounciation").get<String>().value);
 	}
 
 	return routeStep;
@@ -281,7 +284,7 @@ RouteLeg^ ProcessRouteLeg(const Value& jsonLeg, RouteParameters^ routeParameters
 	auto result = gcnew RouteLeg();
 	result->Distance = distance;
 	result->Duration = duration;
-	result->Summary = msclr::interop::marshal_as<System::String^>(summary);
+	result->Summary = Osrmnet::Utils::ConvertFromUtf8(summary);
 
 	if (routeParameters->Steps)
 	{

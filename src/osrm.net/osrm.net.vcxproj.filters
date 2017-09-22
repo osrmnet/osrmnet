@@ -7,10 +7,19 @@
     <ClCompile Include="OSRM.cpp" />
     <ClCompile Include="Stdafx.cpp" />
     <ClCompile Include="OsrmException.cpp" />
-    <ClCompile Include="Route\RouteParameters.cpp" />
-    <ClCompile Include="Route\RouteItem.cpp" />
-    <ClCompile Include="Route\RouteResult.cpp" />
-    <ClCompile Include="Route\RouteWayPoint.cpp" />
+    <ClCompile Include="Route\RouteWayPoint.cpp">
+      <Filter>Route</Filter>
+    </ClCompile>
+    <ClCompile Include="Route\RouteItem.cpp">
+      <Filter>Route</Filter>
+    </ClCompile>
+    <ClCompile Include="Route\RouteParameters.cpp">
+      <Filter>Route</Filter>
+    </ClCompile>
+    <ClCompile Include="Route\RouteResult.cpp">
+      <Filter>Route</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Coordinate.h" />
@@ -20,12 +29,23 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="OsrmException.h" />
-    <ClInclude Include="Route\RouteLeg.h" />
-    <ClInclude Include="Route\RouteWayPoint.h" />
-    <ClInclude Include="Route\RouteParameters.h" />
-    <ClInclude Include="Route\RouteItem.h" />
-    <ClInclude Include="Route\RouteResult.h" />
-    <ClInclude Include="Geometry.h" />
+    <ClInclude Include="Route\RouteWayPoint.h">
+      <Filter>Route</Filter>
+    </ClInclude>
+    <ClInclude Include="Route\RouteResult.h">
+      <Filter>Route</Filter>
+    </ClInclude>
+    <ClInclude Include="Route\RouteItem.h">
+      <Filter>Route</Filter>
+    </ClInclude>
+    <ClInclude Include="Route\RouteLeg.h">
+      <Filter>Route</Filter>
+    </ClInclude>
+    <ClInclude Include="Route\RouteParameters.h">
+      <Filter>Route</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h" />
+	<ClInclude Include="Geometry.h" />
     <ClInclude Include="Bearing.h" />
     <ClInclude Include="Approach.h" />
   </ItemGroup>
@@ -34,5 +54,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Route">
+      <UniqueIdentifier>{b6390646-0c29-4bba-81c0-3b0a362b2ffa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
