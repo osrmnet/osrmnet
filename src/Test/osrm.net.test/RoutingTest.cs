@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Osrmnet;
-using Osrmnet.Route;
+using Osrmnet.RouteService;
 using Xunit;
 
 namespace osrm.net.test

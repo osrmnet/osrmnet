@@ -9,11 +9,21 @@ namespace Osrmnet
 {
 	ref class EngineConfig;
 
-	namespace Route {
+	namespace NearestService {
+		ref class NearestParameters;
+		ref class NearestResult;
+	}
+
+	namespace RouteService {
 		ref class RouteParameters;
 		ref class RouteResult;
 	}	
-	
+
+	namespace TableService {
+		ref class TableParameters;
+		ref class TableResult;
+	}
+
 	public enum class Status
 	{
 		Ok,
@@ -26,8 +36,9 @@ namespace Osrmnet
 		osrm::OSRM* const osrmEngine;
 
 	public: 
-		
-		Status Route(Route::RouteParameters^ routeParameters, [System::Runtime::InteropServices::Out] Route::RouteResult^% result);
+		Status Nearest(NearestService::NearestParameters^ nearestParameters, [System::Runtime::InteropServices::Out] NearestService::NearestResult^% result);
+		Status Route(RouteService::RouteParameters^ routeParameters, [System::Runtime::InteropServices::Out] RouteService::RouteResult^% result);
+		Status Table(TableService::TableParameters^ tableParameters, [System::Runtime::InteropServices::Out] TableService::TableResult^% result);
 
 		Osrm(EngineConfig^ engineConfig);
 		~Osrm()

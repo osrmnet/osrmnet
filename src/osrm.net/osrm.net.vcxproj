@@ -124,33 +124,40 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Approach.h" />
+    <ClInclude Include="BaseParameters.h" />
     <ClInclude Include="Coordinate.h" />
     <ClInclude Include="EngineConfig.h" />
-    <ClInclude Include="Geometry.h" />
     <ClInclude Include="Bearing.h" />
+    <ClInclude Include="Nearest\NearestParameters.h" />
+    <ClInclude Include="Nearest\NearestResult.h" />
     <ClInclude Include="OSRM.h" />
     <ClInclude Include="OsrmException.h" />
     <ClInclude Include="OsrmFwdDecl.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Route\RouteLeg.h" />
+    <ClInclude Include="Route.h" />
     <ClInclude Include="Route\RouteParameters.h" />
     <ClInclude Include="Route\RouteResult.h" />
-    <ClInclude Include="Route\RouteWayPoint.h" />
-    <ClInclude Include="Route\RouteItem.h" />
     <ClInclude Include="Stdafx.h" />
+    <ClInclude Include="Table\TableParameters.h" />
+    <ClInclude Include="Table\TableResult.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="Waypoint.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="BaseParameters.cpp" />
     <ClCompile Include="Coordinate.cpp" />
     <ClCompile Include="EngineConfig.cpp" />
+    <ClCompile Include="Nearest\NearestParameters.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Nearest\NearestResult.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="OSRM.cpp" />
     <ClCompile Include="OsrmException.cpp" />
+    <ClCompile Include="Route.cpp" />
     <ClCompile Include="Route\RouteParameters.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\stdafx.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Route\RouteItem.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -158,15 +165,18 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="Route\RouteWayPoint.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\stdafx.h</PrecompiledHeaderFile>
-    </ClCompile>
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Table\TableParameters.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Table\TableResult.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="Waypoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

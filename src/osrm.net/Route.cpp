@@ -2,25 +2,76 @@
 // Licensed under the MIT License.  See included LICENSE in the project root for license information.
 
 
-#include "..\stdafx.h"
-#include "..\Coordinate.h"
-#include "..\Utils.h"
-#include "..\Geometry.h"
-#include "RouteLeg.h"
-#include "RouteParameters.h"
-#include "RouteItem.h"
-#include "RouteWayPoint.h"
-
+#include "stdafx.h"
+#include "Coordinate.h"
+#include "Utils.h"
+#include "Route.h"
+#include "Waypoint.h"
 
 #include "osrm/json_container.hpp"
 #include "engine/polyline_compressor.hpp"
 
 using namespace System::Collections::Generic;
 using namespace Osrmnet;
-using namespace Osrmnet::Route;
 using namespace osrm::json;
 
-Geometry^ ProcessGeometry(const Value jsonGeometry, GeometriesType geometries)
+Annotation^ ProcessAnnotation(const Object jsonAnnotation, AnnotationsType annotations)
+{
+	if (annotations == AnnotationsType::None)
+		return nullptr;
+	auto annotation = gcnew Annotation();
+	if (annotations.HasFlag(AnnotationsType::Speed))
+	{
+		const auto &annotationSpeeds = jsonAnnotation.values.at("speed").get<Array>().values;
+		for (auto i = 0; i < annotationSpeeds.size(); i++)
+		{
+			annotation->Speed->Add(annotationSpeeds[i].get<Number>().value);
+		}
+	}
+	if (annotations.HasFlag(AnnotationsType::Duration))
+	{
+		const auto &annotationDurations = jsonAnnotation.values.at("duration").get<Array>().values;
+		for (auto i = 0; i < annotationDurations.size(); i++)
+		{
+			annotation->Duration->Add(annotationDurations[i].get<Number>().value);
+		}
+	}
+	if (annotations.HasFlag(AnnotationsType::Nodes))
+	{
+		const auto &annotationNodes = jsonAnnotation.values.at("nodes").get<Array>().values;
+		for (auto i = 0; i < annotationNodes.size(); i++)
+		{
+			annotation->Nodes->Add(static_cast<std::int64_t>(annotationNodes[i].get<Number>().value));
+		}
+	}
+	if (annotations.HasFlag(AnnotationsType::Distance))
+	{
+		const auto &annotationDistances = jsonAnnotation.values.at("distance").get<Array>().values;
+		for (auto i = 0; i < annotationDistances.size(); i++)
+		{
+			annotation->Distance->Add(annotationDistances[i].get<Number>().value);
+		}
+	}
+	if (annotations.HasFlag(AnnotationsType::Datasources))
+	{
+		const auto &annotationDatasources = jsonAnnotation.values.at("datasources").get<Array>().values;
+		for (auto i = 0; i < annotationDatasources.size(); i++)
+		{
+			annotation->Datasources->Add(static_cast<std::int32_t>(annotationDatasources[i].get<Number>().value));
+		}
+	}
+	if (annotations.HasFlag(AnnotationsType::Weight))
+	{
+		const auto &annotationWeights = jsonAnnotation.values.at("weight").get<Array>().values;
+		for (auto i = 0; i < annotationWeights.size(); i++)
+		{
+			annotation->Weight->Add(annotationWeights[i].get<Number>().value);
+		}
+	}
+	return annotation;
+}
+
+Geometry^ ProcessGeometry(const Value jsonValue, GeometriesType geometries)
 {
 	auto result = gcnew Geometry();
 	switch (geometries)
@@ -28,7 +79,7 @@ Geometry^ ProcessGeometry(const Value jsonGeometry, GeometriesType geometries)
 	case GeometriesType::Polyline:
 	case GeometriesType::Polyline6:
 	{
-		const auto encoded = jsonGeometry.get<osrm::json::String>().value;
+		const auto encoded = jsonValue.get<osrm::json::String>().value;
 		result->Encoded = Osrmnet::Utils::ConvertFromUtf8(encoded);
 		break;
 	}
@@ -36,16 +87,16 @@ Geometry^ ProcessGeometry(const Value jsonGeometry, GeometriesType geometries)
 	{
 		/*
 		{
-			"type": "LineString",
-			"coordinates": [
-				[
-					2.349566,
-					48.82971
-				]
-			]
+		"type": "LineString",
+		"coordinates": [
+		[
+		2.349566,
+		48.82971
+		]
+		]
 		}
 		*/
-		const auto &geometryObject = jsonGeometry.get<Object>();
+		const auto &geometryObject = jsonValue.get<Object>();
 		const auto type = geometryObject.values.at("type").get<String>().value;
 		result->Type = Osrmnet::Utils::ConvertFromUtf8(type);
 		const auto& coordinates = geometryObject.values.at("coordinates").get<osrm::json::Array>().values;
@@ -66,10 +117,10 @@ Lane^ ProcessLane(const Value jsonLane)
 {
 	/*
 	{
-	"indications": [
-	"straight"
-	],
-	"valid" : true
+		"indications": [
+			"straight"
+		],
+		"valid" : true
 	}
 	*/
 
@@ -158,7 +209,7 @@ Intersection^ ProcessIntersection(const Value jsonIntersection)
 	return result;
 }
 
-Maneuver^ ProcessManeuver(Object jsonManeuver)
+StepManeuver^ ProcessManeuver(Object jsonManeuver)
 {
 	/*
 	{
@@ -174,7 +225,7 @@ Maneuver^ ProcessManeuver(Object jsonManeuver)
 	},
 	*/
 
-	auto result = gcnew Maneuver();
+	auto result = gcnew StepManeuver();
 	result->BearingAfter = System::Convert::ToInt32(jsonManeuver.values.at("bearing_after").get<Number>().value);
 	result->BearingBefore = System::Convert::ToInt32(jsonManeuver.values.at("bearing_before").get<Number>().value);
 	result->Type = Osrmnet::Utils::ConvertFromUtf8(jsonManeuver.values.at("type").get<String>().value);
@@ -195,7 +246,7 @@ Maneuver^ ProcessManeuver(Object jsonManeuver)
 	return result;
 }
 
-RouteStep^ ProcessStep(Value jsonStep, RouteParameters^ routeParameters)
+RouteStep^ ProcessStep(Value jsonStep, GeometriesType geometries)
 {
 	/*
 	{
@@ -218,7 +269,7 @@ RouteStep^ ProcessStep(Value jsonStep, RouteParameters^ routeParameters)
 	const auto name = stepObject.values.at("name").get<String>().value;
 	const auto mode = stepObject.values.at("mode").get<String>().value;
 
-	routeStep->Geometry = ProcessGeometry(stepObject.values.at("geometry"), routeParameters->Geometries);
+	routeStep->Geometry = ProcessGeometry(stepObject.values.at("geometry"), geometries);
 	routeStep->Mode = Osrmnet::Utils::ConvertFromUtf8(mode);
 	routeStep->Duration = duration;
 	routeStep->Distance = distance;
@@ -263,7 +314,7 @@ RouteStep^ ProcessStep(Value jsonStep, RouteParameters^ routeParameters)
 	return routeStep;
 }
 
-RouteLeg^ ProcessRouteLeg(const Value& jsonLeg, RouteParameters^ routeParameters)
+RouteLeg^ ProcessRouteLeg(const Value& jsonLeg, bool generateSteps, AnnotationsType annotations, GeometriesType geometries)
 {
 	/*
 	{
@@ -285,73 +336,22 @@ RouteLeg^ ProcessRouteLeg(const Value& jsonLeg, RouteParameters^ routeParameters
 	result->Duration = duration;
 	result->Summary = Osrmnet::Utils::ConvertFromUtf8(summary);
 
-	if (routeParameters->Steps)
+	if (generateSteps)
 	{
 		const auto &steps = legObject.values.at("steps").get<Array>().values;
 		for (const auto &step : steps)
 		{
-			result->Steps->Add(ProcessStep(step, routeParameters));
+			result->Steps->Add(ProcessStep(step, geometries));
 		}
 	}
-	auto annotations = routeParameters->Annotations;
 	if (annotations != AnnotationsType::None)
 	{
-		auto annotation = gcnew Annotation();
-		const auto &annotationObject = legObject.values.at("annotation").get<Object>();
-		if (annotations.HasFlag(AnnotationsType::Speed))
-		{
-			const auto &annotationSpeeds = annotationObject.values.at("speed").get<Array>().values;
-			for (auto i = 0; i < annotationSpeeds.size(); i++)
-			{
-				annotation->Speed->Add(annotationSpeeds[i].get<Number>().value);
-			}
-		}
-		if (annotations.HasFlag(AnnotationsType::Duration))
-		{
-			const auto &annotationDurations = annotationObject.values.at("duration").get<Array>().values;
-			for (auto i = 0; i < annotationDurations.size(); i++)
-			{
-				annotation->Duration->Add(annotationDurations[i].get<Number>().value);
-			}
-		}
-		if (annotations.HasFlag(AnnotationsType::Nodes))
-		{
-			const auto &annotationNodes = annotationObject.values.at("nodes").get<Array>().values;
-			for (auto i = 0; i < annotationNodes.size(); i++)
-			{
-				annotation->Nodes->Add(static_cast<std::int64_t>(annotationNodes[i].get<Number>().value));
-			}
-		}
-		if (annotations.HasFlag(AnnotationsType::Distance))
-		{
-			const auto &annotationDistances = annotationObject.values.at("distance").get<Array>().values;
-			for (auto i = 0; i < annotationDistances.size(); i++)
-			{
-				annotation->Distance->Add(annotationDistances[i].get<Number>().value);
-			}
-		}
-		if (annotations.HasFlag(AnnotationsType::Datasources))
-		{
-			const auto &annotationDatasources = annotationObject.values.at("datasources").get<Array>().values;
-			for (auto i = 0; i < annotationDatasources.size(); i++)
-			{
-				annotation->Datasources->Add(static_cast<std::int32_t>(annotationDatasources[i].get<Number>().value));
-			}
-		}
-		if (annotations.HasFlag(AnnotationsType::Weight))
-		{
-			const auto &annotationWeights = annotationObject.values.at("weight").get<Array>().values;
-			for (auto i = 0; i < annotationWeights.size(); i++)
-			{
-				annotation->Weight->Add(annotationWeights[i].get<Number>().value);
-			}
-		}
-		result->Annotation = annotation;
+		result->Annotation = ProcessAnnotation(legObject.values.at("annotation").get<Object>(), annotations);
 	}
 	return result;
 }
 
-RouteItem^ RouteItem::FromJsonObject(const osrm::json::Object& jsonRoute, RouteParameters^ routeParameters)
+Route^ Route::FromJsonObject(const osrm::json::Object &jsonRoute, bool generateSteps, AnnotationsType annotations, GeometriesType geometries, OverviewType overview)
 {
 	/*
 	{
@@ -364,21 +364,21 @@ RouteItem^ RouteItem::FromJsonObject(const osrm::json::Object& jsonRoute, RouteP
 	}
 	*/
 
-	auto result = gcnew RouteItem();
+	auto result = gcnew Route();
 
 	result->Distance = jsonRoute.values.at("distance").get<Number>().value;
 	result->Duration = jsonRoute.values.at("duration").get<Number>().value;
 	result->Weight = jsonRoute.values.at("weight").get<osrm::json::Number>().value;
 	const auto weightName = jsonRoute.values.at("weight_name").get<String>().value;
-	result->WeightName = msclr::interop::marshal_as<System::String^>(weightName);
-	if (routeParameters->Overview != OverviewType::False)
-		result->Geometry = ProcessGeometry(jsonRoute.values.at("geometry"), routeParameters->Geometries);
+	result->WeightName = Osrmnet::Utils::ConvertFromUtf8(weightName);
+	if (overview != OverviewType::False)
+		result->Geometry = ProcessGeometry(jsonRoute.values.at("geometry"), geometries);
 
 	// Process Legs
 	const auto &osrmLegs = jsonRoute.values.at("legs").get<Array>().values;
 	for (const auto &leg : osrmLegs)
 	{
-		result->Legs->Add(ProcessRouteLeg(leg, routeParameters));
+		result->Legs->Add(ProcessRouteLeg(leg, generateSteps, annotations, geometries));
 	}
 	return result;
 }

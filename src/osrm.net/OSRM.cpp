@@ -6,8 +6,14 @@
 #include "EngineConfig.h"
 #include "OsrmException.h"
 
+#include ".\Nearest\NearestParameters.h"
+#include ".\Nearest\NearestResult.h"
+
 #include ".\Route\RouteParameters.h"
 #include ".\Route\RouteResult.h"
+
+#include ".\Table\TableParameters.h"
+#include ".\Table\TableResult.h"
 
 #include "osrm\osrm.hpp"
 #include "engine\engine_config.hpp"
@@ -29,7 +35,38 @@ Osrm::!Osrm()
 	delete osrmEngine;
 }
 
-Status Osrm::Route(Route::RouteParameters^ routeParameters, [System::Runtime::InteropServices::Out] Route::RouteResult^% result)
+Status Osrm::Nearest(NearestService::NearestParameters^ nearestParameters, [System::Runtime::InteropServices::Out] NearestService::NearestResult^% result)
+{
+	osrm::util::json::Object jsonResult;
+	osrm::Status retVal = osrm::Status::Error;
+	try
+	{
+		if (nearestParameters->IsValid())
+		{
+			retVal = osrmEngine->Nearest(*nearestParameters->InnerObject(), jsonResult);
+			if (retVal == osrm::Status::Ok)
+			{
+				result = NearestService::NearestResult::FromJsonObject(jsonResult);
+			}
+		}
+	}
+	catch (osrm::util::exception routeException)
+	{
+		retVal = osrm::Status::Error;
+	}
+	catch (System::Exception^)
+	{
+		// Rethrown managed exception as it is
+		throw;
+	}
+	catch (...)
+	{
+		throw gcnew OsrmException("Unexpected exception is thrown within internal libosrm library.");
+	}
+	return static_cast<Status>(retVal);
+}
+
+Status Osrm::Route(RouteService::RouteParameters^ routeParameters, [System::Runtime::InteropServices::Out] RouteService::RouteResult^% result)
 {
 	osrm::util::json::Object jsonResult;
 	osrm::Status retVal = osrm::Status::Error;
@@ -40,7 +77,7 @@ Status Osrm::Route(Route::RouteParameters^ routeParameters, [System::Runtime::In
 			retVal = osrmEngine->Route(*routeParameters->InnerObject(), jsonResult);
 			if (retVal == osrm::Status::Ok)
 			{
-				result = Route::RouteResult::FromJsonObject(jsonResult, routeParameters);
+				result = RouteService::RouteResult::FromJsonObject(jsonResult, routeParameters);
 			}
 		}		
 	}
@@ -54,6 +91,37 @@ Status Osrm::Route(Route::RouteParameters^ routeParameters, [System::Runtime::In
 		throw;
 	}
 	catch(...)
+	{
+		throw gcnew OsrmException("Unexpected exception is thrown within internal libosrm library.");
+	}
+	return static_cast<Status>(retVal);
+}
+
+Status Osrm::Table(TableService::TableParameters^ tableParameters, [System::Runtime::InteropServices::Out] TableService::TableResult^% result)
+{
+	osrm::util::json::Object jsonResult;
+	osrm::Status retVal = osrm::Status::Error;
+	try
+	{
+		if (tableParameters->IsValid())
+		{
+			retVal = osrmEngine->Table(*tableParameters->InnerObject(), jsonResult);
+			if (retVal == osrm::Status::Ok)
+			{
+				result = TableService::TableResult::FromJsonObject(jsonResult);
+			}
+		}
+	}
+	catch (osrm::util::exception routeException)
+	{
+		retVal = osrm::Status::Error;
+	}
+	catch (System::Exception^)
+	{
+		// Rethrown managed exception as it is
+		throw;
+	}
+	catch (...)
 	{
 		throw gcnew OsrmException("Unexpected exception is thrown within internal libosrm library.");
 	}
