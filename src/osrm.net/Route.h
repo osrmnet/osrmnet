@@ -144,6 +144,7 @@ namespace Osrmnet {
 	public:
 		property double Distance;
 		property double Duration;
+		property double Weight;
 		property System::String^ Summary;
 		property IList<RouteStep^>^ Steps;
 		property Annotation^ Annotation;
@@ -169,6 +170,8 @@ namespace Osrmnet {
 			Legs = gcnew List<RouteLeg^>();
 		}
 
+	internal:
+		Route(const osrm::util::json::Object&, bool, AnnotationsType, GeometriesType, OverviewType);
 		static Route^ FromJsonObject(const osrm::util::json::Object&, bool, AnnotationsType, GeometriesType, OverviewType);
 	};
 }

@@ -21,7 +21,7 @@ namespace Osrmnet {
 		property IList<Bearing^>^ Bearings { void set(IList<Bearing^>^); }
 		property IList<System::Nullable<Approach>>^ Approaches { void set(IList<System::Nullable<Approach>>^); }
 		property bool GenerateHints { void set(bool); }
-		property  IList<System::String^>^ Exclude { void set(IList<System::String^>^); }
+		property IList<System::String^>^ Exclude { void set(IList<System::String^>^); }
 
 		bool IsValid();
 

@@ -8,8 +8,10 @@
 
 using namespace System::Collections::Generic;
 
-namespace Osrmnet {
-	namespace NearestService {
+namespace Osrmnet
+{
+	namespace NearestService
+	{
 		public ref class NearestParameters : public BaseParameters
 		{
 		public:
@@ -18,7 +20,7 @@ namespace Osrmnet {
 			NearestParameters();
 
 		internal:
-			osrm::engine::api::NearestParameters* const InnerObject();
+			osrm::engine::api::NearestParameters* const InnerNearestParameters();
 		};
 	}
 }

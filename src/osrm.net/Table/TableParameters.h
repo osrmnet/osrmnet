@@ -8,8 +8,10 @@
 
 using namespace System::Collections::Generic;
 
-namespace Osrmnet {
-	namespace TableService {
+namespace Osrmnet
+{
+	namespace TableService
+	{
 		public ref class TableParameters : public BaseParameters
 		{
 		public:

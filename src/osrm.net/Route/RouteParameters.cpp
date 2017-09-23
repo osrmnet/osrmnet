@@ -10,60 +10,63 @@
 using namespace Osrmnet;
 using namespace Osrmnet::RouteService;
 
+RouteParameters::RouteParameters(osrm::engine::api::RouteParameters* parameters) : BaseParameters(parameters)
+{
+}
 RouteParameters::RouteParameters() : BaseParameters(new osrm::engine::api::RouteParameters())
 {
 }
 
-osrm::engine::api::RouteParameters* const RouteParameters::InnerObject()
+osrm::engine::api::RouteParameters* const RouteParameters::InnerRouteParameters()
 {
 	return (osrm::engine::api::RouteParameters*)baseParameters;
 }
 
 bool RouteParameters::Steps::get()
 {
-	return InnerObject()->steps;
+	return InnerRouteParameters()->steps;
 }
 void RouteParameters::Steps::set(bool value)
 {
-	InnerObject()->steps = value;
+	InnerRouteParameters()->steps = value;
 }
 unsigned int RouteParameters::NumberOfAlternatives::get()
 {
-	return InnerObject()->number_of_alternatives;
+	return InnerRouteParameters()->number_of_alternatives;
 }
 void RouteParameters::NumberOfAlternatives::set(unsigned int value)
 {
-	InnerObject()->number_of_alternatives = value;
+	InnerRouteParameters()->number_of_alternatives = value;
 }
 AnnotationsType RouteParameters::Annotations::get()
 {
-	return static_cast<AnnotationsType>(InnerObject()->annotations_type);
+	return static_cast<AnnotationsType>(InnerRouteParameters()->annotations_type);
 }
 void RouteParameters::Annotations::set(AnnotationsType value)
 {
-	InnerObject()->annotations_type = static_cast<osrm::engine::api::RouteParameters::AnnotationsType>(value);
+	InnerRouteParameters()->annotations_type = static_cast<osrm::engine::api::RouteParameters::AnnotationsType>(value);
 }
 GeometriesType RouteParameters::Geometries::get()
 {
-	return static_cast<GeometriesType>(InnerObject()->geometries);
+	return static_cast<GeometriesType>(InnerRouteParameters()->geometries);
 }
 void RouteParameters::Geometries::set(GeometriesType value)
 {
-	InnerObject()->geometries = static_cast<osrm::engine::api::RouteParameters::GeometriesType>(value);
+	InnerRouteParameters()->geometries = static_cast<osrm::engine::api::RouteParameters::GeometriesType>(value);
 }
 OverviewType RouteParameters::Overview::get()
 {
-	return static_cast<OverviewType>(InnerObject()->overview);
+	return static_cast<OverviewType>(InnerRouteParameters()->overview);
 }
 void RouteParameters::Overview::set(OverviewType value)
 {
-	InnerObject()->overview = static_cast<osrm::engine::api::RouteParameters::OverviewType>(value);
+	InnerRouteParameters()->overview = static_cast<osrm::engine::api::RouteParameters::OverviewType>(value);
 }
 bool RouteParameters::ContinueStraight::get()
 {
-	return InnerObject()->continue_straight.get();
+	return InnerRouteParameters()->continue_straight.get();
 }
 void RouteParameters::ContinueStraight::set(bool value)
 {
-	InnerObject()->continue_straight = value;
+	InnerRouteParameters()->continue_straight = value;
 }

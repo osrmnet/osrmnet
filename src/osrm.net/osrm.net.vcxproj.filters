@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="Coordinate.cpp" />
     <ClCompile Include="EngineConfig.cpp" />
     <ClCompile Include="OSRM.cpp" />
     <ClCompile Include="Stdafx.cpp" />
@@ -28,6 +27,33 @@
     </ClCompile>
     <ClCompile Include="Table\TableResult.cpp">
       <Filter>Table</Filter>
+    </ClCompile>
+    <ClCompile Include="Match\MatchParameters.cpp">
+      <Filter>Match</Filter>
+    </ClCompile>
+    <ClCompile Include="Match\MatchResult.cpp">
+      <Filter>Match</Filter>
+    </ClCompile>
+    <ClCompile Include="Match\MatchWaypoint.cpp">
+      <Filter>Match</Filter>
+    </ClCompile>
+    <ClCompile Include="Nearest\NearestWaypoint.cpp">
+      <Filter>Nearest</Filter>
+    </ClCompile>
+    <ClCompile Include="Match\MatchRoute.cpp">
+      <Filter>Match</Filter>
+    </ClCompile>
+    <ClCompile Include="Trip\TripParameters.cpp">
+      <Filter>Trip</Filter>
+    </ClCompile>
+    <ClCompile Include="Trip\TripResult.cpp">
+      <Filter>Trip</Filter>
+    </ClCompile>
+    <ClCompile Include="Trip\TripWaypoint.cpp">
+      <Filter>Trip</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile\TileParameters.cpp">
+      <Filter>Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +88,33 @@
     <ClInclude Include="Table\TableResult.h">
       <Filter>Table</Filter>
     </ClInclude>
+    <ClInclude Include="Nearest\NearestWaypoint.h">
+      <Filter>Nearest</Filter>
+    </ClInclude>
+    <ClInclude Include="Match\MatchParameters.h">
+      <Filter>Match</Filter>
+    </ClInclude>
+    <ClInclude Include="Match\MatchResult.h">
+      <Filter>Match</Filter>
+    </ClInclude>
+    <ClInclude Include="Match\MatchWaypoint.h">
+      <Filter>Match</Filter>
+    </ClInclude>
+    <ClInclude Include="Match\MatchRoute.h">
+      <Filter>Match</Filter>
+    </ClInclude>
+    <ClInclude Include="Trip\TripParameters.h">
+      <Filter>Trip</Filter>
+    </ClInclude>
+    <ClInclude Include="Trip\TripResult.h">
+      <Filter>Trip</Filter>
+    </ClInclude>
+    <ClInclude Include="Trip\TripWaypoint.h">
+      <Filter>Trip</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile\TileParameters.h">
+      <Filter>Tile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
@@ -78,6 +131,15 @@
     </Filter>
     <Filter Include="Table">
       <UniqueIdentifier>{e49c8a32-77d2-4797-a255-fdbb20db8152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Match">
+      <UniqueIdentifier>{151ab0b1-892b-4583-80b1-561f8f977b3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Trip">
+      <UniqueIdentifier>{096ed3c6-abb1-4c43-9cee-fbfc772537ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tile">
+      <UniqueIdentifier>{6a1aa4b6-538c-4b53-a505-3aaf6df45f6b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

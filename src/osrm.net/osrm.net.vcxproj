@@ -128,8 +128,13 @@
     <ClInclude Include="Coordinate.h" />
     <ClInclude Include="EngineConfig.h" />
     <ClInclude Include="Bearing.h" />
+    <ClInclude Include="Match\MatchParameters.h" />
+    <ClInclude Include="Match\MatchResult.h" />
+    <ClInclude Include="Match\MatchRoute.h" />
+    <ClInclude Include="Match\MatchWaypoint.h" />
     <ClInclude Include="Nearest\NearestParameters.h" />
     <ClInclude Include="Nearest\NearestResult.h" />
+    <ClInclude Include="Nearest\NearestWaypoint.h" />
     <ClInclude Include="OSRM.h" />
     <ClInclude Include="OsrmException.h" />
     <ClInclude Include="OsrmFwdDecl.h" />
@@ -140,18 +145,38 @@
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="Table\TableParameters.h" />
     <ClInclude Include="Table\TableResult.h" />
+    <ClInclude Include="Tile\TileParameters.h" />
+    <ClInclude Include="Trip\TripParameters.h" />
+    <ClInclude Include="Trip\TripResult.h" />
+    <ClInclude Include="Trip\TripWaypoint.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Waypoint.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="BaseParameters.cpp" />
-    <ClCompile Include="Coordinate.cpp" />
     <ClCompile Include="EngineConfig.cpp" />
+    <ClCompile Include="Match\MatchParameters.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Match\MatchResult.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Match\MatchRoute.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Match\MatchWaypoint.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="Nearest\NearestParameters.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Nearest\NearestResult.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Nearest\NearestWaypoint.cpp">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </DeploymentContent>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="OSRM.cpp" />
@@ -173,6 +198,18 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Table\TableResult.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Tile\TileParameters.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Trip\TripParameters.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Trip\TripResult.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Trip\TripWaypoint.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Utils.cpp" />

@@ -18,11 +18,13 @@ namespace Osrmnet {
 			property IList<Waypoint^>^ Sources;
 			property IList<Waypoint^>^ Destinations;
 			property System::String^ Code;
+			property IList<IList<double>^>^ Durations;
 
 			TableResult()
 			{
 				Sources = gcnew List<Waypoint^>();
 				Destinations = gcnew List<Waypoint^>();
+				Durations = gcnew List<IList<double>^>();
 			}
 
 			static TableResult^ FromJsonObject(const osrm::util::json::Object&);

@@ -24,6 +24,21 @@ namespace Osrmnet
 		ref class TableResult;
 	}
 
+	namespace MatchService {
+		ref class MatchParameters;
+		ref class MatchResult;
+	}
+
+	namespace TripService {
+		ref class TripParameters;
+		ref class TripResult;
+	}
+
+	namespace TileService {
+		ref class TileParameters;
+		ref class TileResult;
+	}
+
 	public enum class Status
 	{
 		Ok,
@@ -36,11 +51,14 @@ namespace Osrmnet
 		osrm::OSRM* const osrmEngine;
 
 	public: 
-		Status Nearest(NearestService::NearestParameters^ nearestParameters, [System::Runtime::InteropServices::Out] NearestService::NearestResult^% result);
-		Status Route(RouteService::RouteParameters^ routeParameters, [System::Runtime::InteropServices::Out] RouteService::RouteResult^% result);
-		Status Table(TableService::TableParameters^ tableParameters, [System::Runtime::InteropServices::Out] TableService::TableResult^% result);
+		Status Nearest(NearestService::NearestParameters^, [System::Runtime::InteropServices::Out] NearestService::NearestResult^%);
+		Status Route(RouteService::RouteParameters^, [System::Runtime::InteropServices::Out] RouteService::RouteResult^%);
+		Status Table(TableService::TableParameters^, [System::Runtime::InteropServices::Out] TableService::TableResult^%);
+		Status Match(MatchService::MatchParameters^, [System::Runtime::InteropServices::Out] MatchService::MatchResult^%);
+		Status Trip(TripService::TripParameters^, [System::Runtime::InteropServices::Out] TripService::TripResult^%);
+		Status Tile(TileService::TileParameters^, [System::Runtime::InteropServices::Out] System::String^%);
 
-		Osrm(EngineConfig^ engineConfig);
+		Osrm(EngineConfig^);
 		~Osrm()
 		{
 			this->!Osrm();

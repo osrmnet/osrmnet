@@ -64,7 +64,7 @@ namespace osrm.net.test
         public void AssertValidRoute(RouteResult routeResult)
         {
             Assert.NotEmpty(routeResult.Routes);
-            Assert.NotEmpty(routeResult.WayPoints);
+            Assert.NotEmpty(routeResult.Waypoints);
             Assert.Equal(routeResult.Code, "Ok");
         }
 

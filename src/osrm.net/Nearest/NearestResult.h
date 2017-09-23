@@ -3,11 +3,12 @@
 // Licensed under the MIT License.  See included LICENSE in the project root for license information.
 
 #include "..\OsrmFwdDecl.h"
-#include "..\Waypoint.h"
+#include "NearestWaypoint.h"
 
 using namespace System::Collections::Generic;
 
-namespace Osrmnet {
+namespace Osrmnet
+{
 	ref class Coordinate;
 
 	namespace NearestService
@@ -15,12 +16,12 @@ namespace Osrmnet {
 		public ref class NearestResult
 		{
 		public:
-			property IList<Waypoint^>^ WayPoints;
+			property IList<NearestWaypoint^>^ WayPoints;
 			property System::String^ Code;
 
 			NearestResult()
 			{
-				WayPoints = gcnew List<Waypoint^>();
+				WayPoints = gcnew List<NearestWaypoint^>();
 			}
 
 			static NearestResult^ FromJsonObject(const osrm::util::json::Object&);

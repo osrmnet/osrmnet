@@ -12,7 +12,7 @@
 using namespace Osrmnet;
 using namespace osrm::util::json;
 
-Waypoint^ Waypoint::FromJsonObject(const osrm::util::json::Object& jsonObject)
+Waypoint::Waypoint(const osrm::util::json::Object& jsonObject)
 {
 	/*
 	{
@@ -24,15 +24,17 @@ Waypoint^ Waypoint::FromJsonObject(const osrm::util::json::Object& jsonObject)
 		"hint": "AQ4AgP___38AAAAACgAAAPIAAAAAAAAAAAAAAAoAAADyAAAAAAAAAEAYAAD-2SMADhXpAv7ZIwAVFekCBgDvEIHseTw="
 	}
 	*/
-	auto result = gcnew Waypoint();
 
+	this->Name = Osrmnet::Utils::ConvertFromUtf8(jsonObject.values.at("name").get<String>().value);
+	const auto &location = jsonObject.values.at("location").get<Array>().values;
+	this->Location = gcnew Osrmnet::Coordinate(location[1].get<Number>().value, location[0].get<Number>().value);
 	if (jsonObject.values.count("hint") > 0) // hint depends on GenerateHints paramters
 	{
-		result->Hint = Osrmnet::Utils::ConvertFromUtf8(jsonObject.values.at("hint").get<String>().value);
+		this->Hint = Osrmnet::Utils::ConvertFromUtf8(jsonObject.values.at("hint").get<String>().value);
 	}
-	result->Name = Osrmnet::Utils::ConvertFromUtf8(jsonObject.values.at("name").get<String>().value);
-	const auto &location = jsonObject.values.at("location").get<Array>().values;
-	result->Location = gcnew Osrmnet::Coordinate(location[1].get<Number>().value, location[0].get<Number>().value);
+}
 
-	return result;
+Waypoint^ Waypoint::FromJsonObject(const osrm::util::json::Object& jsonObject)
+{
+	return gcnew Waypoint(jsonObject);
 }

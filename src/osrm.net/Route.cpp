@@ -87,13 +87,13 @@ Geometry^ ProcessGeometry(const Value jsonValue, GeometriesType geometries)
 	{
 		/*
 		{
-		"type": "LineString",
-		"coordinates": [
-		[
-		2.349566,
-		48.82971
-		]
-		]
+			"type": "LineString",
+			"coordinates": [
+				[
+					2.349566,
+					48.82971
+				]
+			]
 		}
 		*/
 		const auto &geometryObject = jsonValue.get<Object>();
@@ -130,7 +130,7 @@ Lane^ ProcessLane(const Value jsonLane)
 	const auto &indications = lane.values.at("indications").get<Array>().values;
 	for (const auto &indication : indications)
 	{
-		result->Indications->Add(msclr::interop::marshal_as<System::String^>(indication.get<String>().value));
+		result->Indications->Add(Osrmnet::Utils::ConvertFromUtf8(indication.get<String>().value));
 	}
 	result->Valid = lane.values.at("valid").is<True>();
 	return result;
@@ -213,15 +213,15 @@ StepManeuver^ ProcessManeuver(Object jsonManeuver)
 {
 	/*
 	{
-	"type": "merge",
-	"exit": 1,
-	"modifier": "slight right",
-	"location": [
-	2.423833,
-	48.620961
-	],
-	"bearing_before": 149,
-	"bearing_after": 136
+		"type": "merge",
+		"exit": 1,
+		"modifier": "slight right",
+		"location": [
+			2.423833,
+			48.620961
+		],
+		"bearing_before": 149,
+		"bearing_after": 136
 	},
 	*/
 
@@ -250,14 +250,14 @@ RouteStep^ ProcessStep(Value jsonStep, GeometriesType geometries)
 {
 	/*
 	{
-	"distance": 83.7,
-	"mode": "driving",
-	"duration": 14.8,
-	"weight": 14.8,
-	"geometry": ...,
-	"intersections": [ { ... } ],
-	"name": "Boulevard Auguste Blanqui",
-	"maneuver": { ... }
+		"distance": 83.7,
+		"mode": "driving",
+		"duration": 14.8,
+		"weight": 14.8,
+		"geometry": ...,
+		"intersections": [ Intersection,... ],
+		"name": "Boulevard Auguste Blanqui",
+		"maneuver": StepManeuver
 	}
 	*/
 
@@ -318,22 +318,24 @@ RouteLeg^ ProcessRouteLeg(const Value& jsonLeg, bool generateSteps, AnnotationsT
 {
 	/*
 	{
-	"distance": 34918.3,
-	"duration": 1854.1,
-	"weight": 1854.1,
-	"summary": "Autoroute du Soleil, Autoroute du Soleil",
-	"steps": [ {... } ]
+		"distance": 34918.3,
+		"duration": 1854.1,
+		"weight": 1854.1,
+		"summary": "Autoroute du Soleil, Autoroute du Soleil",
+		"steps": [ RouteStep,... ]
 	}
 	*/
 
 	const auto &legObject = jsonLeg.get<Object>();
 	const auto distance = legObject.values.at("distance").get<Number>().value;
 	const auto duration = legObject.values.at("duration").get<Number>().value;
+	const auto weight = legObject.values.at("weight").get<Number>().value;
 	const auto summary = legObject.values.at("summary").get<String>().value;
 
 	auto result = gcnew RouteLeg();
 	result->Distance = distance;
 	result->Duration = duration;
+	result->Weight = weight;
 	result->Summary = Osrmnet::Utils::ConvertFromUtf8(summary);
 
 	if (generateSteps)
@@ -351,34 +353,35 @@ RouteLeg^ ProcessRouteLeg(const Value& jsonLeg, bool generateSteps, AnnotationsT
 	return result;
 }
 
-Route^ Route::FromJsonObject(const osrm::json::Object &jsonRoute, bool generateSteps, AnnotationsType annotations, GeometriesType geometries, OverviewType overview)
+Route::Route(const osrm::json::Object &jsonRoute, bool generateSteps, AnnotationsType annotations, GeometriesType geometries, OverviewType overview) : Route()
 {
 	/*
 	{
-	"distance": 34918.3,
-	"duration" : 1854.1,
-	"weight" : 1854.1,
-	"weight_name" : "routability",
-	"geometry" : ...,
-	"legs" : [ { ... } ]
+		"distance": 34918.3,
+		"duration": 1854.1,
+		"weight": 1854.1,
+		"weight_name": "routability",
+		"geometry": ...,
+		"legs": [ RouteLeg,... ]
 	}
 	*/
 
-	auto result = gcnew Route();
-
-	result->Distance = jsonRoute.values.at("distance").get<Number>().value;
-	result->Duration = jsonRoute.values.at("duration").get<Number>().value;
-	result->Weight = jsonRoute.values.at("weight").get<osrm::json::Number>().value;
-	const auto weightName = jsonRoute.values.at("weight_name").get<String>().value;
-	result->WeightName = Osrmnet::Utils::ConvertFromUtf8(weightName);
+	this->Distance = jsonRoute.values.at("distance").get<Number>().value;
+	this->Duration = jsonRoute.values.at("duration").get<Number>().value;
+	this->Weight = jsonRoute.values.at("weight").get<osrm::json::Number>().value;
+	this->WeightName = Osrmnet::Utils::ConvertFromUtf8(jsonRoute.values.at("weight_name").get<String>().value);
 	if (overview != OverviewType::False)
-		result->Geometry = ProcessGeometry(jsonRoute.values.at("geometry"), geometries);
+		this->Geometry = ProcessGeometry(jsonRoute.values.at("geometry"), geometries);
 
 	// Process Legs
 	const auto &osrmLegs = jsonRoute.values.at("legs").get<Array>().values;
 	for (const auto &leg : osrmLegs)
 	{
-		result->Legs->Add(ProcessRouteLeg(leg, generateSteps, annotations, geometries));
+		this->Legs->Add(ProcessRouteLeg(leg, generateSteps, annotations, geometries));
 	}
-	return result;
+}
+
+Route^ Route::FromJsonObject(const osrm::json::Object &jsonRoute, bool generateSteps, AnnotationsType annotations, GeometriesType geometries, OverviewType overview)
+{
+	return gcnew Route(jsonRoute, generateSteps, annotations, geometries, overview);
 }

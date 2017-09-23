@@ -9,10 +9,10 @@
 
 using namespace System::Collections::Generic;
 
-namespace Osrmnet {
-	ref class Coordinate;
-
-	namespace RouteService {
+namespace Osrmnet
+{
+	namespace RouteService
+	{
 		public ref class RouteParameters : public BaseParameters
 		{
 		public:
@@ -24,9 +24,10 @@ namespace Osrmnet {
 			property bool ContinueStraight { bool get(); void set(bool); }
 			
 			RouteParameters();
+			RouteParameters(osrm::engine::api::RouteParameters* parameters);
 
 		internal:
-			osrm::engine::api::RouteParameters* const InnerObject();
+			osrm::engine::api::RouteParameters* const InnerRouteParameters();
 		};
 	}
 }

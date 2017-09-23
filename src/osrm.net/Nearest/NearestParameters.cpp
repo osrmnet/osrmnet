@@ -14,16 +14,16 @@ NearestParameters::NearestParameters() : BaseParameters(new osrm::engine::api::N
 {
 }
 
-osrm::engine::api::NearestParameters* const NearestParameters::InnerObject()
+osrm::engine::api::NearestParameters* const NearestParameters::InnerNearestParameters()
 {
 	return (osrm::engine::api::NearestParameters*)baseParameters;
 }
 
 unsigned int NearestParameters::NumberOfResults::get()
 {
-	return InnerObject()->number_of_results;
+	return InnerNearestParameters()->number_of_results;
 }
 void NearestParameters::NumberOfResults::set(unsigned int value)
 {
-	InnerObject()->number_of_results = value;
+	InnerNearestParameters()->number_of_results = value;
 }

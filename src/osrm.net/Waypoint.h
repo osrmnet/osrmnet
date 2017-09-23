@@ -15,6 +15,7 @@ namespace Osrmnet {
 		property Coordinate^ Location;
 
 	internal:
+		Waypoint(const osrm::util::json::Object&);
 		static Waypoint^ FromJsonObject(const osrm::util::json::Object& jsonObject);
 	};
 }

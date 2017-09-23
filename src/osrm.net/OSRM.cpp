@@ -5,6 +5,7 @@
 #include "OSRM.h"
 #include "EngineConfig.h"
 #include "OsrmException.h"
+#include <msclr\marshal_cppstd.h>
 
 #include ".\Nearest\NearestParameters.h"
 #include ".\Nearest\NearestResult.h"
@@ -14,6 +15,14 @@
 
 #include ".\Table\TableParameters.h"
 #include ".\Table\TableResult.h"
+
+#include ".\Match\MatchParameters.h"
+#include ".\Match\MatchResult.h"
+
+#include ".\Trip\TripParameters.h"
+#include ".\Trip\TripResult.h"
+
+#include ".\Tile\TileParameters.h"
 
 #include "osrm\osrm.hpp"
 #include "engine\engine_config.hpp"
@@ -43,14 +52,14 @@ Status Osrm::Nearest(NearestService::NearestParameters^ nearestParameters, [Syst
 	{
 		if (nearestParameters->IsValid())
 		{
-			retVal = osrmEngine->Nearest(*nearestParameters->InnerObject(), jsonResult);
+			retVal = osrmEngine->Nearest(*nearestParameters->InnerNearestParameters(), jsonResult);
 			if (retVal == osrm::Status::Ok)
 			{
 				result = NearestService::NearestResult::FromJsonObject(jsonResult);
 			}
 		}
 	}
-	catch (osrm::util::exception routeException)
+	catch (osrm::util::exception exception)
 	{
 		retVal = osrm::Status::Error;
 	}
@@ -74,14 +83,14 @@ Status Osrm::Route(RouteService::RouteParameters^ routeParameters, [System::Runt
 	{
 		if (routeParameters->IsValid())
 		{
-			retVal = osrmEngine->Route(*routeParameters->InnerObject(), jsonResult);
+			retVal = osrmEngine->Route(*routeParameters->InnerRouteParameters(), jsonResult);
 			if (retVal == osrm::Status::Ok)
 			{
 				result = RouteService::RouteResult::FromJsonObject(jsonResult, routeParameters);
 			}
 		}		
 	}
-	catch(osrm::util::exception routeException)
+	catch(osrm::util::exception exception)
 	{
 		retVal = osrm::Status::Error;
 	}
@@ -112,7 +121,100 @@ Status Osrm::Table(TableService::TableParameters^ tableParameters, [System::Runt
 			}
 		}
 	}
-	catch (osrm::util::exception routeException)
+	catch (osrm::util::exception exception)
+	{
+		retVal = osrm::Status::Error;
+	}
+	catch (System::Exception^)
+	{
+		// Rethrown managed exception as it is
+		throw;
+	}
+	catch (...)
+	{
+		throw gcnew OsrmException("Unexpected exception is thrown within internal libosrm library.");
+	}
+	return static_cast<Status>(retVal);
+}
+
+Status Osrm::Match(MatchService::MatchParameters^ matchParameters, [System::Runtime::InteropServices::Out] MatchService::MatchResult^% result)
+{
+	osrm::util::json::Object jsonResult;
+	osrm::Status retVal = osrm::Status::Error;
+	try
+	{
+		if (matchParameters->IsValid())
+		{
+			retVal = osrmEngine->Match(*matchParameters->InnerMatchParameters(), jsonResult);
+			if (retVal == osrm::Status::Ok)
+			{
+				result = MatchService::MatchResult::FromJsonObject(jsonResult, matchParameters);
+			}
+		}
+	}
+	catch (osrm::util::exception exception)
+	{
+		retVal = osrm::Status::Error;
+	}
+	catch (System::Exception^)
+	{
+		// Rethrown managed exception as it is
+		throw;
+	}
+	catch (...)
+	{
+		throw gcnew OsrmException("Unexpected exception is thrown within internal libosrm library.");
+	}
+	return static_cast<Status>(retVal);
+}
+
+Status Osrm::Trip(TripService::TripParameters^ tripParameters, [System::Runtime::InteropServices::Out] TripService::TripResult^% result)
+{
+	osrm::util::json::Object jsonResult;
+	osrm::Status retVal = osrm::Status::Error;
+	try
+	{
+		if (tripParameters->IsValid())
+		{
+			retVal = osrmEngine->Trip(*tripParameters->InnerTripParameters(), jsonResult);
+			if (retVal == osrm::Status::Ok)
+			{
+				result = TripService::TripResult::FromJsonObject(jsonResult, tripParameters);
+			}
+		}
+	}
+	catch (osrm::util::exception exception)
+	{
+		retVal = osrm::Status::Error;
+	}
+	catch (System::Exception^)
+	{
+		// Rethrown managed exception as it is
+		throw;
+	}
+	catch (...)
+	{
+		throw gcnew OsrmException("Unexpected exception is thrown within internal libosrm library.");
+	}
+	return static_cast<Status>(retVal);
+}
+
+Status Osrm::Tile(TileService::TileParameters^ tileParameters, [System::Runtime::InteropServices::Out] System::String^% result)
+{
+	std::string stringResult;
+	osrm::Status retVal = osrm::Status::Error;
+	try
+	{
+		if (tileParameters->IsValid())
+		{
+			retVal = osrmEngine->Tile(*tileParameters->InnerTileParameters(), stringResult);
+			if (retVal == osrm::Status::Ok)
+			{
+				result = msclr::interop::marshal_as<System::String^>(stringResult);
+			}
+		}
+	}
+	catch (osrm::util::exception exception)
 	{
 		retVal = osrm::Status::Error;
 	}

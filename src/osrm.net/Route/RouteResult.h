@@ -8,7 +8,8 @@
 
 using namespace System::Collections::Generic;
 
-namespace Osrmnet {
+namespace Osrmnet
+{
 	ref class Coordinate;
 
 	namespace RouteService
@@ -19,13 +20,13 @@ namespace Osrmnet {
 		{
 		public:
 			property IList<Route^>^ Routes;
-			property IList<Waypoint^>^ WayPoints;
+			property IList<Waypoint^>^ Waypoints;
 			property System::String^ Code;
 
 			RouteResult()
 			{
 				Routes = gcnew List<Route^>();
-				WayPoints = gcnew List<Waypoint^>();
+				Waypoints = gcnew List<Waypoint^>();
 			}
 
 			static RouteResult^ FromJsonObject(const osrm::util::json::Object&, RouteParameters^);
