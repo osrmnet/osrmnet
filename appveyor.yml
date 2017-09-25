@@ -13,7 +13,7 @@
       - master
   configuration: Release
   platform: x64
-  image: Visual Studio 2015
+  image: Visual Studio 2017
   # Uncomment to debug the AV build worker
   # init:
   # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
