@@ -4,49 +4,30 @@
 #pragma once
 
 #include "..\OsrmFwdDecl.h"
+#include "..\BaseParameters.h"
+#include "..\Route.h"
 
 using namespace System::Collections::Generic;
 
-namespace Osrmnet {
-	ref class Coordinate;
-}
-
-namespace Osrmnet {
-	namespace Route {
-		public enum class GeometriesType
-		{
-			Polyline,
-			GeoJSON
-		};
-		public enum class OverviewType
-		{
-			Simplified,
-			Full,
-			False
-		};
-
-		public ref class RouteParameters
+namespace Osrmnet
+{
+	namespace RouteService
+	{
+		public ref class RouteParameters : public BaseParameters
 		{
 		public:
+			property unsigned int NumberOfAlternatives { unsigned int get(); void set(unsigned int); }
 			property bool Steps { bool get(); void set(bool); }
-			property bool Alternatives { bool get(); void set(bool); }
-			property bool Annotations { bool get(); void set(bool); }
+			property AnnotationsType Annotations { AnnotationsType get(); void set(AnnotationsType); }
 			property GeometriesType Geometries { GeometriesType get(); void set(GeometriesType); }
 			property OverviewType Overview { OverviewType get(); void set(OverviewType); }
 			property bool ContinueStraight { bool get(); void set(bool); }
-			property IList<Coordinate^>^ Coordinates { void set(IList<Coordinate^>^); }
-
-			bool IsValid();
-
+			
 			RouteParameters();
-			~RouteParameters();
-			!RouteParameters();
+			RouteParameters(osrm::engine::api::RouteParameters* parameters);
 
 		internal:
-			osrm::engine::api::RouteParameters* const InnerObject();
-
-		private:
-			osrm::engine::api::RouteParameters* const routeParameters;
+			osrm::engine::api::RouteParameters* const InnerRouteParameters();
 		};
 	}
 }

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>osrmnet</id>
-    <version>0.1</version>
+    <version>1.0</version>
     <title>Osrm.Net</title>
     <authors>Surya Suluh and Osrm.Net contributors</authors>
     <owners>Surya Suluh</owners>
@@ -10,7 +10,7 @@
     <projectUrl>http://github.com/ssuluh/osrmnet</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>.NET Wrapper for OSRM library</description>
-    <releaseNotes>Prerelease with OSRM.Route support only</releaseNotes>
+    <releaseNotes>Full implementation of OSRM API</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>osrm osm navigation openstreetmap</tags>
   </metadata>

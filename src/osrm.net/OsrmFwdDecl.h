@@ -10,7 +10,13 @@ namespace osrm
 		struct EngineConfig;
 		namespace api
 		{
+			struct BaseParameters;
+			struct NearestParameters;
 			struct RouteParameters;
+			struct TableParameters;
+			struct MatchParameters;
+			struct TripParameters;
+			struct TileParameters;
 		}
 	}
 	namespace storage

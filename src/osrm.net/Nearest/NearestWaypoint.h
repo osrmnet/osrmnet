@@ -3,23 +3,22 @@
 
 #pragma once
 #include "..\OsrmFwdDecl.h"
+#include "..\Waypoint.h"
 
 namespace Osrmnet {
 	ref class Coordinate;
 
-	namespace Route {
-
-		ref class RouteParameters;
-
-		public ref class RouteWayPoint
+	namespace NearestService
+	{
+		public ref class NearestWaypoint : public Waypoint
 		{
 		public:
-			property System::String^ Hint;
-			property System::String^ Name;
-			property Coordinate^ Location;
+			property double Distance;
+
 
 		internal:
-			static RouteWayPoint^ FromJsonObject(const osrm::util::json::Object& jsonObject);
+			NearestWaypoint(const osrm::util::json::Object&);
+			static NearestWaypoint^ FromJsonObject(const osrm::util::json::Object&);
 		};
 	}
 }

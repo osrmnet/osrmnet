@@ -3,29 +3,30 @@
 // Licensed under the MIT License.  See included LICENSE in the project root for license information.
 
 #include "..\OsrmFwdDecl.h"
+#include "..\Route.h"
+#include "..\Waypoint.h"
 
 using namespace System::Collections::Generic;
 
-namespace Osrmnet {
+namespace Osrmnet
+{
 	ref class Coordinate;
-	
-	namespace Route
+
+	namespace RouteService
 	{
-		ref class RouteItem;
 		ref class RouteParameters;
-		ref class RouteWayPoint;
 
 		public ref class RouteResult
 		{
 		public:
-			property IList<RouteItem^>^ Routes;
-			property IList<RouteWayPoint^>^ WayPoints;
+			property IList<Route^>^ Routes;
+			property IList<Waypoint^>^ Waypoints;
 			property System::String^ Code;
 
 			RouteResult()
 			{
-				Routes = gcnew List<RouteItem^>();
-				WayPoints = gcnew List<RouteWayPoint^>();
+				Routes = gcnew List<Route^>();
+				Waypoints = gcnew List<Waypoint^>();
 			}
 
 			static RouteResult^ FromJsonObject(const osrm::util::json::Object&, RouteParameters^);
