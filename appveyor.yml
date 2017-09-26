@@ -5,7 +5,7 @@
 -
   shallow_clone: true
   clone_depth: 1
-  version: 0.1.0.{build}
+  version: 1.0.0.{build}
   pull_requests:
     do_not_increment_build_number: true
   branches:
@@ -33,9 +33,9 @@
   assembly_info:
     patch: true
     file: AssemblyInfo.*
-    assembly_version: "0.1.0.{build}"
-    assembly_file_version: "0.1.0.{build}"
-    assembly_informational_version: "0.1.0.{build}-pre"
+    assembly_version: "1.0.0.{build}"
+    assembly_file_version: "1.0.0.{build}"
+    assembly_informational_version: "1.0.0.{build}-pre"
   test:
     assemblies: '**\*.Test.dll'
   deploy:
