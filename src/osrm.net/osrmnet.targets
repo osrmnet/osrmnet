@@ -1,0 +1,8 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <TbbLib Include="$(MsBuildThisFileDirectory)\..\..\lib\native\*.dll" />
+    <None Include="@(TbbLib)">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>
