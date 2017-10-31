@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package >
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>osrmnet</id>
     <version>1.0</version>
@@ -13,9 +13,21 @@
     <releaseNotes>Full implementation of OSRM API</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>osrm osm navigation openstreetmap</tags>
+
+    <references>
+      <reference file="osrm.net.dll" />
+    </references>
+
+    <!--<contentFiles>
+      --><!-- Include everything in the scripts folder except exe files --><!--
+      <files include="content\tbb*.dll" buildAction="Content" copyToOutput="true" flatten="true"/>
+    </contentFiles>-->
   </metadata>
 
   <files>
-    <file src="bin\x64\Release\*.dll" target="lib\net40" />
-  </files>
+    <file src="bin\x64\Release\osrm.net.dll" target="lib\net45" />
+    <file src="bin\x64\Release\tbb*.dll" target="lib\native" />
+    <file src="osrmnet.targets" target="build\net45" />
+    <!--<file src="osrmnet.props" target="build\net45" />-->
+  </files>  
 </package>

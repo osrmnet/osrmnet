@@ -22,8 +22,8 @@
   - .\src\osrm.net\libosrm -> .\libosrmver.txt
   - .\src\Test\osrm.net.test\TestData -> .\libosrmver.txt
   before_build:
-  - appveyor-retry nuget restore .\src\osrm.net.sln
   - ps: .\build.ps1
+  - appveyor-retry nuget restore .\src\osrm.net.sln  
 
   build_script:
   - msbuild .\src\osrm.net.sln /t:Rebuild /p:Configuration=Release;Platform="x64" /m
