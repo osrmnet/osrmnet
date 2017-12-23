@@ -16,13 +16,10 @@ To build locally:
 2. Use msbuild.exe or Visual Studio 2015/2017 to build the project. (If you use VS 2017, make sure you don't upgrade the project).
 
 # Status
-This project is still at pre-release state.  Currently there's only limited implementation for OSRM.Route().
+This project is still at pre-release state, it can use more unit test coverage but other than that all OSRM method should be implemented.
 
 # Installation
-Get the binaries from nuget (http://www.nuget.org/packages/osrmnet)
-
-# Getting Started
-Coming soon !
+Use nuget (http://www.nuget.org/packages/osrmnet)
 
 # License
 MIT License
