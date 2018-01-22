@@ -11,6 +11,7 @@ EngineConfig::EngineConfig() : engineConfig(new osrm::engine::EngineConfig())
 {
 	// Default shared memory is off
 	this->UseSharedMemory = false;
+	this->Algorithm = Osrmnet::Algorithm::MLD;
 }
 
 EngineConfig::~EngineConfig()
@@ -40,6 +41,15 @@ bool EngineConfig::UseSharedMemory::get()
 void EngineConfig::UseSharedMemory::set(bool value)
 {
 	engineConfig->use_shared_memory = value;
+}
+
+Osrmnet::Algorithm EngineConfig::Algorithm::get()
+{
+	return static_cast<Osrmnet::Algorithm>(engineConfig->algorithm);
+}
+void EngineConfig::Algorithm::set(Osrmnet::Algorithm algorithm)
+{
+	engineConfig->algorithm = static_cast<osrm::engine::EngineConfig::Algorithm>(algorithm);
 }
 
 bool EngineConfig::IsValid()

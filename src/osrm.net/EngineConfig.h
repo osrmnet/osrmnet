@@ -8,12 +8,20 @@
 
 namespace Osrmnet
 {
+	public enum class Algorithm
+	{
+		CH,
+		CoreCH, // Deprecated, will be removed in v6.0
+		MLD
+	};
+
 	public ref class EngineConfig
 	{
 	public:
 		bool IsValid();
 		property System::String^ StorageConfig { System::String^ get();  void set(System::String^); }
 		property bool UseSharedMemory { bool get(); void set(bool); }
+		property Osrmnet::Algorithm Algorithm { Osrmnet::Algorithm get(); void set(Osrmnet::Algorithm); }
 
 		EngineConfig();
 		~EngineConfig();
