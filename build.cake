@@ -3,18 +3,17 @@
 //////////////////////////////////////////////////////////////////////
 var slnName = "osrmnet.sln";
 var slnPath = @".\src\";
-var libosrmVersion = "5.14.2";
+var libosrmVersion = "5.14.3";
 var s3Path = @"https://s3.amazonaws.com/osrmnet/" + libosrmVersion + @"/";
 
 var testDataPath = slnPath + @"Test\osrm.net.test\";
 var libOsrmPath = slnPath + @"osrm.net\";
 
-
 //////////////////////////////////////////////////////////////////////
 // InitDependencies
 //////////////////////////////////////////////////////////////////////
-Task("InitDependencies")
-    .Description("Init project dependencies")
+Task("GetDependencies")
+    .Description("Get project dependencies")
     .Does(() =>
     {
       if(!DirectoryExists(testDataPath + "TestData"))
@@ -23,7 +22,7 @@ Task("InitDependencies")
         var testDataDest = testDataPath + "TestData.zip";
         DownloadFile(testDataSrc, testDataDest);
         CleanDirectory(testDataPath + "TestData");
-        Unzip(testDataDest, testDataPath);
+        Unzip(testDataDest, testDataPath + "TestData");
         DeleteFile(testDataDest);
       }
 
@@ -33,7 +32,7 @@ Task("InitDependencies")
         var libOsrmDest = libOsrmPath + "libosrm.zip";
         DownloadFile(libOsrmSrc, libOsrmDest);
         CleanDirectory(libOsrmPath + "libosrm");
-        Unzip(libOsrmDest, libOsrmPath);
+        Unzip(libOsrmDest, libOsrmPath + "libosrm");
         DeleteFile(libOsrmDest);
       }      
     });
@@ -49,12 +48,27 @@ Task("CleanDependencies")
       DeleteDirectory(libOsrmPath + "libosrm", true);
     });
 
+Task("Build")
+.Description("Build Project")
+.IsDependentOn("GetDependencies")
+.Does(() =>
+{
+  // msbuild instruction:
+  // msbuild .\src\osrm.net.sln /t:Rebuild /p:Configuration=Release;Platform="x64" /m
+  MSBuild("./src/osrm.net.sln", configurator => {
+    configurator.UseToolVersion(MSBuildToolVersion.VS2017)
+    .SetConfiguration("Release")
+    .SetPlatformTarget(PlatformTarget.x64)
+    .WithTarget("Rebuild");
+  });
+});
+
 //////////////////////////////////////////////////////////////////////
 // Default
 //////////////////////////////////////////////////////////////////////
 var target = Argument("target", "Default");
 Task("Default")
-  .IsDependentOn("InitDependencies")
+  .IsDependentOn("Build")
   .Does(() =>
 {  
 });
