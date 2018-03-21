@@ -127,7 +127,7 @@ namespace Osrmnet {
 
 		//Optionals
 		property System::Nullable<double> Weight;
-		property System::Nullable<int> Ref;
+		property System::String^ Ref;
 		property System::String^ Pronounciation;
 		property System::String^ Destinations;
 		property System::String^ RotaryName;

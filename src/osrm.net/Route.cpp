@@ -311,6 +311,11 @@ RouteStep^ ProcessStep(Value jsonStep, GeometriesType geometries)
 		routeStep->RotaryName = Osrmnet::Utils::ConvertFromUtf8(stepObject.values.at("rotary_pronounciation").get<String>().value);
 	}
 
+	if (stepObject.values.count("ref") > 0)
+	{
+		routeStep->Ref = Osrmnet::Utils::ConvertFromUtf8(stepObject.values.at("ref").get<String>().value);
+	}
+
 	return routeStep;
 }
 
