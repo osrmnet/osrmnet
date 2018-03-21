@@ -128,7 +128,7 @@ namespace osrm.net.test.Routing
         }
 
         [Fact]
-        public void RoutingWithStepsTrue_ShouldReturnEmpty()
+        public void RoutingWithStepsFalse_ShouldReturnEmpty()
         {
             using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
             {
