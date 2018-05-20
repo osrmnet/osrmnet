@@ -37,3 +37,8 @@ void TableParameters::Destinations::set(System::Collections::Generic::IList<size
 		InnerObject()->destinations.push_back(index);
 	}
 }
+
+void TableParameters::Annotations::set(AnnotationsType value)
+{
+	InnerObject()->annotations = static_cast<osrm::engine::api::TableParameters::AnnotationsType>(value);	
+}

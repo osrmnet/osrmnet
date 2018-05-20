@@ -12,11 +12,11 @@ using static osrm.net.test.Common.OsrmTestAssert;
 
 namespace osrm.net.test.Routing
 {
-    public class WhenUsingOrlandoDataFileWithCHAlgorithm : IClassFixture<OrlandoEngineConfigCHAlgorithm>
+    public class WhenUsingOrlandoCh : IClassFixture<OrlandoEngineConfigCh>
     {
-        private readonly OrlandoEngineConfigCHAlgorithm _engineConfig;
+        private readonly OrlandoEngineConfigCh _engineConfig;
 
-        public WhenUsingOrlandoDataFileWithCHAlgorithm(OrlandoEngineConfigCHAlgorithm engineConfig)
+        public WhenUsingOrlandoCh(OrlandoEngineConfigCh engineConfig)
         {
             _engineConfig = engineConfig;
         }

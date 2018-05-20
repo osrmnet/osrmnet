@@ -51,14 +51,31 @@ TableResult^ TableResult::FromJsonObject(const osrm::util::json::Object& jsonObj
 	auto code = jsonObject.values.at("code").get<String>().value;
 	result->Code = Osrmnet::Utils::ConvertFromUtf8(code);
 
-	const auto &durations = jsonObject.values.at("durations").get<Array>().values;
-	for (const auto &duration : durations)
-	{
-		auto values = gcnew List<double>();
-		const auto &jsonValues = duration.get<Array>().values;
-		for (const auto &jsonValue : jsonValues)
-			values->Add(jsonValue.get<Number>().value);
-		result->Durations->Add(values);
+
+	// durations (optional)
+	if (jsonObject.values.find("durations") != jsonObject.values.end()) {
+		const auto &durations = jsonObject.values.at("durations").get<Array>().values;
+		for (const auto &duration : durations)
+		{
+			auto values = gcnew List<double>();
+			const auto &jsonValues = duration.get<Array>().values;
+			for (const auto &jsonValue : jsonValues)
+				values->Add(jsonValue.get<Number>().value);
+			result->Durations->Add(values);
+		}
+	}
+
+	// distance (optional)
+	if (jsonObject.values.find("distances") != jsonObject.values.end()) {
+		const auto &distances = jsonObject.values.at("distances").get<Array>().values;
+		for (const auto &distance : distances)
+		{
+			auto values = gcnew List<double>();
+			const auto &jsonValues = distance.get<Array>().values;
+			for (const auto &jsonValue : jsonValues)
+				values->Add(jsonValue.get<Number>().value);
+			result->Distances->Add(values);
+		}
 	}
 
 	return result;

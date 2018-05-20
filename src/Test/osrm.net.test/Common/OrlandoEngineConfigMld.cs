@@ -4,11 +4,11 @@ using Osrmnet;
 
 namespace osrm.net.test.Common
 {
-    public class OrlandoEngineConfig : BaseEngineConfig, IDisposable
+    public class OrlandoEngineConfigMld : BaseEngineConfig, IDisposable
     {
         public EngineConfig EngineConfig { get; }
 
-        public OrlandoEngineConfig()
+        public OrlandoEngineConfigMld()
         {
             var testDataPath = Path.Combine(TestDataPath, "mld", "Orlando.osrm");
             EngineConfig = new EngineConfig()
