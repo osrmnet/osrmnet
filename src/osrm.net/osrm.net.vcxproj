@@ -66,7 +66,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WIN32;_WINDOWS;NDEBUG;_LARGEFILE_SOURCE;_FILE_OFFSET_BITS=64;NOMINMAX;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;BOOST_LIB_DIAGNOSTIC;_USE_MATH_DEFINES;_WIN32_WINNT=0x0501;XML_STATIC;BOOST_SPIRIT_USE_PHOENIX_V3;BOOST_RESULT_OF_USE_DECLTYPE;BOOST_FILESYSTEM_NO_DEPRECATED;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>libosrm\include;libosrm\third_party;libosrm\third_party\libosmium\include;libosrm\osrm-deps\boost\include\boost-1_63;libosrm\osrm-deps\tbb\include;libosrm\osrm-deps\libs\include\luabind;libosrm\osrm-deps\libs\include;libosrm\third_party\variant\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>libosrm\include;libosrm\third_party;libosrm\third-party\libosmium\include;libosrm\third-party\variant\include;libosrm\osrm-deps\boost\include\boost-1_63;libosrm\osrm-deps\tbb\include;libosrm\osrm-deps\libs\include\luabind;libosrm\osrm-deps\libs\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -94,7 +94,7 @@
       <WarningLevel>Level4</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WIN32;_WINDOWS;NDEBUG;_LARGEFILE_SOURCE;_FILE_OFFSET_BITS=64;NOMINMAX;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;BOOST_LIB_DIAGNOSTIC;_USE_MATH_DEFINES;_WIN32_WINNT=0x0501;XML_STATIC;BOOST_SPIRIT_USE_PHOENIX_V3;BOOST_RESULT_OF_USE_DECLTYPE;BOOST_FILESYSTEM_NO_DEPRECATED;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>libosrm\include;libosrm\third_party;libosrm\third_party\libosmium\include;libosrm\osrm-deps\boost\include\boost-1_63;libosrm\osrm-deps\tbb\include;libosrm\osrm-deps\libs\include\luabind;libosrm\osrm-deps\libs\include;libosrm\third_party\variant\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>libosrm\include;libosrm\third_party;libosrm\third-party\libosmium\include;libosrm\third-party\variant\include;libosrm\osrm-deps\boost\include\boost-1_63;libosrm\osrm-deps\tbb\include;libosrm\osrm-deps\libs\include\luabind;libosrm\osrm-deps\libs\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>

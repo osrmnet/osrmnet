@@ -3,8 +3,9 @@
 //////////////////////////////////////////////////////////////////////
 var slnName = "osrmnet.sln";
 var slnPath = @".\src\";
-var libosrmVersion = "5.14.3";
-var s3Path = @"https://s3.amazonaws.com/osrmnet/" + libosrmVersion + @"/";
+var libosrmMajorVersion = "5.18";
+var libosrmMinorVersion = "0";
+var s3Path = @"https://s3.amazonaws.com/osrmnet/" + libosrmMajorVersion + @"/";
 
 var testDataPath = slnPath + @"Test\osrm.net.test\";
 var libOsrmPath = slnPath + @"osrm.net\";
@@ -18,7 +19,7 @@ Task("GetDependencies")
     {
       if(!DirectoryExists(testDataPath + "TestData"))
       {
-        var testDataSrc = s3Path + "TestData.zip";
+        var testDataSrc = s3Path + "testdata.zip";
         var testDataDest = testDataPath + "TestData.zip";
         DownloadFile(testDataSrc, testDataDest);
         CleanDirectory(testDataPath + "TestData");
@@ -28,7 +29,7 @@ Task("GetDependencies")
 
       if(!DirectoryExists(libOsrmPath + "libosrm"))
       {
-        var libOsrmSrc = s3Path + "libosrm.zip";
+        var libOsrmSrc = s3Path + $"libosrm-{libosrmMajorVersion}.{libosrmMinorVersion}.zip";
         var libOsrmDest = libOsrmPath + "libosrm.zip";
         DownloadFile(libOsrmSrc, libOsrmDest);
         CleanDirectory(libOsrmPath + "libosrm");
