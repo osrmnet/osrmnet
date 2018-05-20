@@ -149,5 +149,29 @@ namespace osrm.net.test.Routing
                 Assert.Empty(steps);
             }
         }
+
+        [Fact]
+        public void RoutingWithMoreAlternateAllowed_ShouldFailWithTooBigCode()
+        {
+            using (Osrm sut = new Osrm(_orlandoEngineConfigMld.EngineConfig))
+            {
+                RouteResult routeResult;
+                var result = sut.Route(new RouteParameters()
+                {
+                    Coordinates = new List<Coordinate>()
+                    {
+                        new Coordinate(28.479065, -81.463945),
+                        new Coordinate(28.598181, -81.207633),
+                        new Coordinate(28.598181, -81.207633),
+                        new Coordinate(28.598181, -81.207633),
+                    },
+                    Steps = false,
+                    NumberOfAlternatives = 4
+                }, out routeResult);
+
+                Assert.Equal(Status.Error, result);
+                Assert.Equal("TooBig", routeResult.Code);
+            }
+        }
     }
 }
