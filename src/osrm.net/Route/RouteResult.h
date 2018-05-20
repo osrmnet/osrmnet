@@ -22,6 +22,7 @@ namespace Osrmnet
 			property IList<Route^>^ Routes;
 			property IList<Waypoint^>^ Waypoints;
 			property System::String^ Code;
+			property System::String^ Message;
 
 			RouteResult()
 			{
