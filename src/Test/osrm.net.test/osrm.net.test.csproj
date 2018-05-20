@@ -80,16 +80,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\IledeFranceEngineConfigMld.cs" />
     <Compile Include="Common\OsrmTestAssert.cs" />
+    <Compile Include="Routing\WhenUsingIldeFranceMld.cs" />
     <Compile Include="Routing\WhenUsingInvalidEngineConfig.cs" />
-    <Compile Include="Routing\WhenUsingOrlandoDataFileWithCHAlgorithm.cs" />
+    <Compile Include="Routing\WhenUsingOrlandoCh.cs" />
     <Compile Include="Common\BaseEngineConfig.cs" />
     <Compile Include="Common\InvalidEngineConfig.cs" />
-    <Compile Include="Common\OrlandoEngineConfigCHAlgorithm.cs" />
-    <Compile Include="Common\OrlandoEngineConfig.cs" />
+    <Compile Include="Common\OrlandoEngineConfigCh.cs" />
+    <Compile Include="Common\OrlandoEngineConfigMld.cs" />
     <Compile Include="EngineConfig\EngineConfigTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Routing\WhenUsingOrlandoDataFile.cs" />
+    <Compile Include="Routing\WhenUsingOrlandoMld.cs" />
+    <Compile Include="Table\WhenUsingOrlandoCh.cs" />
+    <Compile Include="Table\WhenUsingOrlandoMld.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

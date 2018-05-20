@@ -5,28 +5,23 @@ using Osrmnet;
 using Osrmnet.RouteService;
 using Xunit;
 
+using static osrm.net.test.Common.OsrmTestAssert;
+
 namespace osrm.net.test.Routing
 {
-    public class WhenUsingOrlandoDataFile : IClassFixture<OrlandoEngineConfig>
+    public class WhenUsingOrlandoMld : IClassFixture<OrlandoEngineConfigMld>
     {
-        private readonly OrlandoEngineConfig _orlandoEngineConfig;
+        private readonly OrlandoEngineConfigMld _orlandoEngineConfigMld;
 
-        private void AssertValidRoute(RouteResult routeResult)
+        public WhenUsingOrlandoMld(OrlandoEngineConfigMld orlandoEngineConfigMld)
         {
-            Assert.Equal("Ok", routeResult.Code);
-            Assert.NotEmpty(routeResult.Routes);
-            Assert.NotEmpty(routeResult.Waypoints);
-        }
-
-        public WhenUsingOrlandoDataFile(OrlandoEngineConfig orlandoEngineConfig)
-        {
-            _orlandoEngineConfig = orlandoEngineConfig;
+            _orlandoEngineConfigMld = orlandoEngineConfigMld;
         }
 
         [Fact]
         public void InitOsrmEngine_ShouldCreateOsrmObject()
         {
-            using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
+            using (Osrm sut = new Osrm(_orlandoEngineConfigMld.EngineConfig))
             {
                 Assert.NotNull(sut);
             }
@@ -35,7 +30,7 @@ namespace osrm.net.test.Routing
         [Fact]
         public void RoutingWithValidStartEndCoordinate_ShouldReturnStatusOk()
         {
-            using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
+            using (Osrm sut = new Osrm(_orlandoEngineConfigMld.EngineConfig))
             {
                 RouteResult routeResult;
                 var result = sut.Route(new RouteParameters()
@@ -54,7 +49,7 @@ namespace osrm.net.test.Routing
         [Fact]
         public void RoutingWithAnnotationTrue_ShouldReturnStatusOkWithValidAnnotations()
         {
-            using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
+            using (Osrm sut = new Osrm(_orlandoEngineConfigMld.EngineConfig))
             {
                 RouteResult routeResult;
                 var result = sut.Route(new RouteParameters()
@@ -83,7 +78,7 @@ namespace osrm.net.test.Routing
         [Fact]
         public void RoutingWithAnnotationFalse_ShouldReturnStatusOkWithEmptyAnnotations()
         {
-            using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
+            using (Osrm sut = new Osrm(_orlandoEngineConfigMld.EngineConfig))
             {
                 RouteResult routeResult;
                 var result = sut.Route(new RouteParameters()
@@ -107,7 +102,7 @@ namespace osrm.net.test.Routing
         [Fact]
         public void RoutingWithStepsTrue_ShouldReturnValidSteps()
         {
-            using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
+            using (Osrm sut = new Osrm(_orlandoEngineConfigMld.EngineConfig))
             {
                 RouteResult routeResult;
                 var result = sut.Route(new RouteParameters()
@@ -130,7 +125,7 @@ namespace osrm.net.test.Routing
         [Fact]
         public void RoutingWithStepsFalse_ShouldReturnEmpty()
         {
-            using (Osrm sut = new Osrm(_orlandoEngineConfig.EngineConfig))
+            using (Osrm sut = new Osrm(_orlandoEngineConfigMld.EngineConfig))
             {
                 RouteResult routeResult;
                 var result = sut.Route(new RouteParameters()
