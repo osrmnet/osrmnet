@@ -3,9 +3,8 @@ using osrm.net.test.Common;
 using Osrmnet;
 using Osrmnet.RouteService;
 using Xunit;
-using static osrm.net.test.Common.OsrmTestAssert;
 
-namespace osrm.net.test.Routing
+namespace osrm.net.test.Tests
 {
     public class WhenUsingIldeFranceMld : IClassFixture<IledeFranceEngineConfigMld>
     {
@@ -32,7 +31,7 @@ namespace osrm.net.test.Routing
                     }
                 }, out routeResult);
                 Assert.Equal(Status.Ok, result);
-                AssertValidRoute(routeResult);
+                OsrmTestAssert.AssertValidRoute(routeResult);
             }
         }
     }

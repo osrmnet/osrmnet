@@ -2,7 +2,7 @@ using osrm.net.test.Common;
 using Osrmnet;
 using Xunit;
 
-namespace osrm.net.test.Routing
+namespace osrm.net.test.Tests
 {
     public class WhenUsingInvalidEngineConfig : IClassFixture<InvalidEngineConfig>
     {

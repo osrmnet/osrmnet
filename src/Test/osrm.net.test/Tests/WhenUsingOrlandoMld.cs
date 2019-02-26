@@ -3,11 +3,11 @@ using System.Linq;
 using osrm.net.test.Common;
 using Osrmnet;
 using Osrmnet.RouteService;
+using Osrmnet.TableService;
 using Xunit;
+using AnnotationsType = Osrmnet.AnnotationsType;
 
-using static osrm.net.test.Common.OsrmTestAssert;
-
-namespace osrm.net.test.Routing
+namespace osrm.net.test.Tests
 {
     public class WhenUsingOrlandoMld : IClassFixture<OrlandoEngineConfigMld>
     {
@@ -42,7 +42,7 @@ namespace osrm.net.test.Routing
                     },
                 }, out routeResult);
                 Assert.Equal(Status.Ok, result);
-                AssertValidRoute(routeResult);
+                OsrmTestAssert.AssertValidRoute(routeResult);
             }
         }
 
@@ -68,7 +68,7 @@ namespace osrm.net.test.Routing
                 var nodes = enumerable.SelectMany(x => x.Nodes);
 
                 Assert.Equal(Status.Ok, result);
-                AssertValidRoute(routeResult);
+                OsrmTestAssert.AssertValidRoute(routeResult);
 
                 Assert.NotEmpty(distances);
                 Assert.NotEmpty(nodes);
@@ -94,7 +94,7 @@ namespace osrm.net.test.Routing
                 var annotations = routeResult.Routes.SelectMany(x => x.Legs).Select(y => y.Annotation).Where(x => x != null);
 
                 Assert.Equal(Status.Ok, result);
-                AssertValidRoute(routeResult);
+                OsrmTestAssert.AssertValidRoute(routeResult);
                 Assert.NotEmpty(annotations);
             }
         }
@@ -116,7 +116,7 @@ namespace osrm.net.test.Routing
                 }, out routeResult);
 
                 Assert.Equal(Status.Ok, result);
-                AssertValidRoute(routeResult);
+                OsrmTestAssert.AssertValidRoute(routeResult);
                 var steps = routeResult.Routes.SelectMany(x => x.Legs).SelectMany(x => x.Steps);
                 Assert.NotEmpty(steps);
             }
@@ -139,7 +139,7 @@ namespace osrm.net.test.Routing
                 }, out routeResult);
 
                 Assert.Equal(Status.Ok, result);
-                AssertValidRoute(routeResult);
+                OsrmTestAssert.AssertValidRoute(routeResult);
                 var steps = routeResult.Routes.SelectMany(x => x.Legs).SelectMany(x => x.Steps);
                 Assert.Empty(steps);
             }
@@ -166,6 +166,69 @@ namespace osrm.net.test.Routing
 
                 Assert.Equal(Status.Error, result);
                 Assert.Equal("TooBig", routeResult.Code);
+            }
+        }
+
+        [Fact]
+        public void TableWithDefaultConfig_ShouldReturnGoodResultWithDurationAsDefault()
+        {
+            using (Osrm sut = new Osrm(_orlandoEngineConfigMld.EngineConfig))
+            {
+                var result = sut.Table(new TableParameters()
+                {
+                    Coordinates = new List<Coordinate>()
+                    {
+                        new Coordinate(28.551750, -81.450598),
+                        new Coordinate(28.774844, -81.242909),
+                        new Coordinate(28.636579, -81.427413)
+                    },
+
+                }, out TableResult tableResult);
+                Assert.Equal(Status.Ok, result);
+                Assert.NotEmpty(tableResult.Durations);
+            }
+        }
+
+        [Fact]
+        public void TableWithAnnotationDistance_ShouldReturnDistanceOnly()
+        {
+            using (Osrm sut = new Osrm(_orlandoEngineConfigMld.EngineConfig))
+            {
+                var result = sut.Table(new TableParameters()
+                {
+                    Coordinates = new List<Coordinate>()
+                    {
+                        new Coordinate(28.551750, -81.450598),
+                        new Coordinate(28.774844, -81.242909),
+                        new Coordinate(28.636579, -81.427413)
+                    },
+                    Annotations = Osrmnet.TableService.AnnotationsType.Distance
+
+                }, out TableResult tableResult);
+                Assert.NotEmpty(tableResult.Distances);
+                Assert.Empty(tableResult.Durations);
+            }
+        }
+
+        [Fact]
+        public void TableWithAllAnnotation_ShouldReturnDurationsAndDistances()
+        {
+            using (Osrm sut = new Osrm(_orlandoEngineConfigMld.EngineConfig))
+            {
+                var result = sut.Table(new TableParameters()
+                {
+                    Coordinates = new List<Coordinate>()
+                    {
+                        new Coordinate(28.551750, -81.450598),
+                        new Coordinate(28.774844, -81.242909),
+                        new Coordinate(28.636579, -81.427413)
+                    },
+                    Annotations = Osrmnet.TableService.AnnotationsType.All
+
+                }, out TableResult tableResult);
+                Assert.Equal(Status.Ok, result);
+                Assert.NotEmpty(tableResult.Durations);
+                Assert.NotEmpty(tableResult.Distances);
             }
         }
     }
