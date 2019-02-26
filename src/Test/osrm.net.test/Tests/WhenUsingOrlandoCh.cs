@@ -1,29 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using osrm.net.test.Common;
 using Osrmnet;
+using Osrmnet.RouteService;
 using Osrmnet.TableService;
 using Xunit;
-using AnnotationsType = Osrmnet.TableService.AnnotationsType;
 
-namespace osrm.net.test.Table
+namespace osrm.net.test.Tests
 {
     public class WhenUsingOrlandoCh : IClassFixture<OrlandoEngineConfigCh>
     {
-        private readonly OrlandoEngineConfigCh _config;
+        private readonly OrlandoEngineConfigCh _engineConfig;
 
-        public WhenUsingOrlandoCh(OrlandoEngineConfigCh config)
+        public WhenUsingOrlandoCh(OrlandoEngineConfigCh engineConfig)
         {
-            _config = config;
+            _engineConfig = engineConfig;
+        }
+
+        [Fact]
+        public void InitOsrmEngine_ShouldCreateOsrmObject()
+        {
+            using (Osrm sut = new Osrm(_engineConfig.EngineConfig))
+            {
+                Assert.NotNull(sut);
+            }
+        }
+
+        [Fact]
+        public void RoutingWithValidStartEndCoordinate_ShouldReturnStatusOk()
+        {
+            using (Osrm sut = new Osrm(_engineConfig.EngineConfig))
+            {
+                RouteResult routeResult;
+                var result = sut.Route(new RouteParameters()
+                {
+                    Coordinates = new List<Coordinate>()
+                    {
+                        new Coordinate(28.479065, -81.463945),
+                        new Coordinate(28.598181, -81.207633)
+                    },
+                }, out routeResult);
+                Assert.Equal(Status.Ok, result);
+                OsrmTestAssert.AssertValidRoute(routeResult);
+            }
         }
 
         [Fact]
         public void TableWithDefaultConfig_ShouldReturnGoodResultWithDurationAsDefault()
         {
-            using (Osrm sut = new Osrm(_config.EngineConfig))
+            using (Osrm sut = new Osrm(_engineConfig.EngineConfig))
             {
                 var result = sut.Table(new TableParameters()
                 {
@@ -43,7 +67,7 @@ namespace osrm.net.test.Table
         [Fact]
         public void TableWithDistanceAnnotation_ShouldReturnGoodResultWithDistances()
         {
-            using (Osrm sut = new Osrm(_config.EngineConfig))
+            using (Osrm sut = new Osrm(_engineConfig.EngineConfig))
             {
                 var result = sut.Table(new TableParameters()
                 {
@@ -53,7 +77,7 @@ namespace osrm.net.test.Table
                         new Coordinate(28.774844, -81.242909),
                         new Coordinate(28.636579, -81.427413)
                     },
-                    Annotations = AnnotationsType.Distance
+                    Annotations = Osrmnet.TableService.AnnotationsType.Distance
 
                 }, out TableResult tableResult);
                 Assert.Equal(Status.Ok, result);
@@ -65,7 +89,7 @@ namespace osrm.net.test.Table
         [Fact]
         public void TableWithAllAnnotation_ShouldReturnDurationsAndDistances()
         {
-            using (Osrm sut = new Osrm(_config.EngineConfig))
+            using (Osrm sut = new Osrm(_engineConfig.EngineConfig))
             {
                 var result = sut.Table(new TableParameters()
                 {
@@ -75,7 +99,7 @@ namespace osrm.net.test.Table
                         new Coordinate(28.774844, -81.242909),
                         new Coordinate(28.636579, -81.427413)
                     },
-                    Annotations = AnnotationsType.All
+                    Annotations = Osrmnet.TableService.AnnotationsType.All
 
                 }, out TableResult tableResult);
                 Assert.Equal(Status.Ok, result);
