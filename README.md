@@ -6,9 +6,12 @@
 
 This project provides necessary .NET wrapper to use OSRM library directly without the web server (https://github.com/Project-OSRM/osrm-backend).
 
-Our design goal is to follow as close as possible the OSRM project APIs and data type.  User should be able to use the existing OSRM documentation to use this library.
+Our design goal is to follow as close as possible OSRM project's APIs and data types.  User should be able to use OSRM documentation to use this library.
 
 Contribution is always welcome, please email me:  ssuluh@yahoo.com
+
+# Current OSRM Version
+5.22
 
 # Build Locally
 Please read the OSRM Wiki:  https://github.com/Project-OSRM/osrm-backend/wiki/Windows-Compilation.
