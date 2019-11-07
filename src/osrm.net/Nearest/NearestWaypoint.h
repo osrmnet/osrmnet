@@ -5,6 +5,8 @@
 #include "..\OsrmFwdDecl.h"
 #include "..\Waypoint.h"
 
+using namespace System::Collections::Generic;
+
 namespace Osrmnet {
 	ref class Coordinate;
 
@@ -13,8 +15,8 @@ namespace Osrmnet {
 		public ref class NearestWaypoint : public Waypoint
 		{
 		public:
+			property IList<long>^ Nodes;
 			property double Distance;
-
 
 		internal:
 			NearestWaypoint(const osrm::util::json::Object&);
