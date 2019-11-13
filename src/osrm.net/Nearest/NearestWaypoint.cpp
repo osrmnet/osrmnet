@@ -16,7 +16,7 @@ using namespace osrm::util::json;
 
 NearestWaypoint::NearestWaypoint(const osrm::util::json::Object& jsonObject) : Waypoint(jsonObject)
 {
-	Nodes = gcnew List<long>(2);
+	Nodes = gcnew List<UINT64>(2);
 }
 
 NearestWaypoint^ NearestWaypoint::FromJsonObject(const osrm::util::json::Object& jsonObject)
@@ -40,7 +40,7 @@ NearestWaypoint^ NearestWaypoint::FromJsonObject(const osrm::util::json::Object&
 
 	const auto& nodes = jsonObject.values.at("nodes").get<Array>().values;
 	for (const auto& node : nodes) {
-		result->Nodes->Add((long)node.get<Number>().value);
+		result->Nodes->Add((UINT64)node.get<Number>().value);
 	}
 
 	result->Distance = jsonObject.values.at("distance").get<Number>().value;

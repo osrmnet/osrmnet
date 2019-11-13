@@ -15,7 +15,7 @@ namespace Osrmnet {
 		public ref class NearestWaypoint : public Waypoint
 		{
 		public:
-			property IList<long>^ Nodes;
+			property IList<UINT64>^ Nodes;
 			property double Distance;
 
 		internal:
