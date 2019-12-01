@@ -25,7 +25,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CLRSupport>true</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -142,7 +142,6 @@
     <ClInclude Include="OSRM.h" />
     <ClInclude Include="OsrmException.h" />
     <ClInclude Include="OsrmFwdDecl.h" />
-    <ClInclude Include="OSRMWithUtils.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Route.h" />
     <ClInclude Include="Route\RouteParameters.h" />
@@ -193,7 +192,6 @@
     </ClCompile>
     <ClCompile Include="OSRM.cpp" />
     <ClCompile Include="OsrmException.cpp" />
-    <ClCompile Include="OSRMWithUtils.cpp" />
     <ClCompile Include="Route.cpp" />
     <ClCompile Include="Route\RouteParameters.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\stdafx.h</PrecompiledHeaderFile>
