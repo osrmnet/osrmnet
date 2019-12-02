@@ -10,11 +10,15 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <PropertyGroup Label="Globals">
+  <PropertyGroup>
     <ProjectGuid>{3935E5C6-16E4-4700-8E5B-ADA4A62F498F}</ProjectGuid>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <Keyword>ManagedCProj</Keyword>
+    <TargetFrameworks>netcoreapp3.0;net45</TargetFrameworks>
+    <AssemblyName>osrm.net</AssemblyName>
     <RootNamespace>osrmnet</RootNamespace>
+    <Version>1.0.0</Version>
+    <Authors>Surya Suluh</Authors>
+    <Copyright>(c) 2019 Surya Suluh</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
