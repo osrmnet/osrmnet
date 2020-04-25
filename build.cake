@@ -57,7 +57,7 @@ Task("Build")
   // msbuild instruction:
   // msbuild .\src\osrm.net.sln /t:Rebuild /p:Configuration=Release;Platform="x64" /m
   MSBuild("./src/osrm.net.sln", configurator => {
-    configurator.UseToolVersion(MSBuildToolVersion.VS2017)
+    configurator.UseToolVersion(MSBuildToolVersion.VS2019)
     .SetConfiguration("Release")
     .SetPlatformTarget(PlatformTarget.x64)
     .WithTarget("Rebuild");
