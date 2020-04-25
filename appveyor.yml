@@ -39,12 +39,9 @@
   test:
     assemblies: '**\*.Test.dll'
   deploy:
-    provider: NuGet
-    api_key:
-      secure: EOx473RuAtGsqMKKDlZoUOx/2ae4fH0nYt2yVpP2y7sUJ02fZ6pGEHH+zthADQYG
-    skip_symbols: false
-    on:
-      branch: master
+    provider: Environment
+    name: OsrmnetRelease
+    on:      
       appveyor_repo_tag: true
   # Uncomment to debug the AV build worker
   # on_finish:
