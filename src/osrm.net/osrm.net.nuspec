@@ -1,33 +1,36 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-  <metadata>
-    <id>osrmnet</id>
-    <version>3.1</version>
-    <title>Osrm.Net</title>
-    <authors>Surya Suluh and Osrm.Net contributors</authors>
-    <owners>Surya Suluh</owners>
-    <licenseUrl>http://github.com/ssuluh/osrmnet/blob/master/LICENSE</licenseUrl>
-    <projectUrl>http://github.com/ssuluh/osrmnet</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>.NET Wrapper for OSRM library</description>
-    <releaseNotes>Full implementation of OSRM API</releaseNotes>
-    <copyright>Copyright 2020</copyright>
-    <tags>osrm osm navigation openstreetmap</tags>
+	<metadata>
+		<id>osrmnet</id>
+		<version>3.1.0-pre</version>
+		<title>Osrm.Net</title>
+		<authors>Surya Suluh and Osrm.Net contributors</authors>
+		<owners>Osrmnet</owners>
+		<license type="expression">MIT</license>
+		<projectUrl>https://github.com/osrmnet/osrmnet</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>.NET Wrapper for OSRM library</description>
+		<releaseNotes>Full implementation of OSRM API</releaseNotes>
+		<copyright>Copyright 2020</copyright>
+		<tags>osrm osm navigation openstreetmap</tags>
 
-    <references>
-      <reference file="osrm.net.dll" />
-    </references>
+		<dependencies>
+			<group targetFramework="netcoreapp3.1">
+			</group>
+		</dependencies>
 
-    <!--<contentFiles>
-      --><!-- Include everything in the scripts folder except exe files --><!--
-      <files include="content\tbb*.dll" buildAction="Content" copyToOutput="true" flatten="true"/>
-    </contentFiles>-->
-  </metadata>
+		<references>
+			<group targetFramework="netcoreapp3.1">
+				<reference file="osrm.net.dll" />
+			</group>
+		</references>
+	</metadata>
 
-  <files>
-    <file src="bin\x64\Release\osrm.net.dll" target="lib\netcoreapp3.1" />
-    <file src="bin\x64\Release\tbb*.dll" target="lib\native" />
-    <file src="osrmnet.targets" target="build\netcoreapp3.1" />
-    <!--<file src="osrmnet.props" target="build\net45" />-->
-  </files>  
+	<files>
+		<file src="bin\x64\Release\osrm.net.dll" target="lib\netcoreapp3.1" />
+		<file src="bin\x64\Release\osrm.net.dll" target="ref\netcoreapp3.1" />
+		<file src="bin\x64\Release\tbb*.dll" target="runtimes\win10-x64\lib\netcoreapp3.1" />
+		<file src="bin\x64\Release\Ijwhost.dll" target="runtimes\win10-x64\lib\netcoreapp3.1" />
+		<file src="osrmnet.targets" target="build\netcoreapp3.1" />
+	</files>
 </package>
