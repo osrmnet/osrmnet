@@ -25,6 +25,12 @@ Open Powershell and run .\build.ps1 from the root directory of the project.
 # Installation
 Use nuget (http://www.nuget.org/packages/osrmnet)
 
+# How To Get osrmnet's osrm library and application (osrm project does not maintain Windows build):
+1. Clone this project
+2. Run this command from powershell:
+`.\build.ps1 -Target "GetDependencies"
+3. Location of the osrm libraries and app: .\osrmnet\src\osrm.net\libosrm\redist\osrm_15.22.0.zip
+
 # License
 MIT License
 
