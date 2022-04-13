@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 var slnName = "osrmnet.sln";
 var slnPath = @".\src\";
-var libosrmMajorVersion = "5.22";
+var libosrmMajorVersion = "5.26";
 var libosrmMinorVersion = "0";
 var s3Path = @"https://s3.amazonaws.com/osrmnet/" + libosrmMajorVersion + @"/";
 
