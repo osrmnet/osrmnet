@@ -11,7 +11,7 @@ Our design goal is to follow as close as possible OSRM project's APIs and data t
 Contribution is always welcome, please email me:  ssuluh@yahoo.com
 
 # Current OSRM Version
-5.22
+5.26
 
 # Build Locally
 Please read the OSRM Wiki:  https://github.com/Project-OSRM/osrm-backend/wiki/Windows-Compilation.
@@ -29,7 +29,7 @@ Use nuget (http://www.nuget.org/packages/osrmnet)
 1. Clone this project
 2. Run this command from powershell:
 `.\build.ps1 -Target "GetDependencies"
-3. Location of the osrm libraries and app: .\osrmnet\src\osrm.net\libosrm\redist\osrm_15.22.0.zip
+3. Location of the osrm libraries and app: .\osrmnet\src\osrm.net\libosrm\redist\osrm_5.26.0.zip
 
 # License
 MIT License
