@@ -69,7 +69,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WIN32;_WINDOWS;NDEBUG;_LARGEFILE_SOURCE;_FILE_OFFSET_BITS=64;NOMINMAX;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;BOOST_LIB_DIAGNOSTIC;_USE_MATH_DEFINES;_WIN32_WINNT=0x0501;XML_STATIC;BOOST_SPIRIT_USE_PHOENIX_V3;BOOST_RESULT_OF_USE_DECLTYPE;BOOST_FILESYSTEM_NO_DEPRECATED;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>libosrm\include;libosrm\third_party;libosrm\third-party\libosmium\include;libosrm\third-party\variant\include;libosrm\osrm-deps\boost\include\boost-1_63;libosrm\osrm-deps\tbb\include;libosrm\osrm-deps\libs\include\luabind;libosrm\osrm-deps\libs\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>libosrm\include;libosrm\third_party;libosrm\osrm-deps\include;libosrm\third_party\flatbuffers\include;libosrm\third_party\variant\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -85,7 +85,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;osrm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>libosrm\lib;libosrm\osrm-deps\boost\lib;libosrm\osrm-deps\libs\lib;libosrm\osrm-deps\tbb\lib\intel64\vc14;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>libosrm\lib;libosrm\osrm-deps\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <FullProgramDatabaseFile>true</FullProgramDatabaseFile>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
@@ -105,7 +105,7 @@
       </WarningLevel>
       <PreprocessorDefinitions>WIN32;_WIN32;_WINDOWS;NDEBUG;_LARGEFILE_SOURCE;_FILE_OFFSET_BITS=64;NOMINMAX;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;BOOST_LIB_DIAGNOSTIC;_USE_MATH_DEFINES;_WIN32_WINNT=0x0501;XML_STATIC;BOOST_SPIRIT_USE_PHOENIX_V3;BOOST_RESULT_OF_USE_DECLTYPE;BOOST_FILESYSTEM_NO_DEPRECATED;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>libosrm\include;libosrm\third_party;libosrm\third-party\libosmium\include;libosrm\third-party\variant\include;libosrm\osrm-deps\boost\include\boost-1_63;libosrm\osrm-deps\tbb\include;libosrm\osrm-deps\libs\include\luabind;libosrm\osrm-deps\libs\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>libosrm\include;libosrm\third_party;libosrm\osrm-deps\include;libosrm\third_party\flatbuffers\include;libosrm\third_party\variant\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -122,7 +122,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;osrm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>libosrm\lib;libosrm\osrm-deps\boost\lib;libosrm\osrm-deps\libs\lib;libosrm\osrm-deps\tbb\lib\intel64\vc14;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>libosrm\lib;libosrm\osrm-deps\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <FullProgramDatabaseFile>true</FullProgramDatabaseFile>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ShowProgress>
