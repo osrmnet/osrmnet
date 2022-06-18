@@ -2,35 +2,35 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>osrmnet</id>
-		<version>3.1.0</version>
+		<version>6.0.0</version>
 		<title>Osrm.Net</title>
 		<authors>Surya Suluh and Osrm.Net contributors</authors>
 		<owners>Osrmnet</owners>
-		<license type="expression">MIT</license>
+		<license type="expression">Apache-2.0+</license>
 		<projectUrl>https://github.com/osrmnet/osrmnet</projectUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>.NET Wrapper for OSRM library</description>
 		<releaseNotes>Full implementation of OSRM API</releaseNotes>
 		<copyright>Copyright 2020</copyright>
-		<tags>osrm osm navigation openstreetmap</tags>
+		<tags>osrm osm navigation openstreetmap .net</tags>
 
 		<dependencies>
-			<group targetFramework="netcoreapp3.1">
+			<group targetFramework="net6.0">
 			</group>
 		</dependencies>
 
 		<references>
-			<group targetFramework="netcoreapp3.1">
+			<group targetFramework="net6.0">
 				<reference file="osrm.net.dll" />
 			</group>
 		</references>
 	</metadata>
 
 	<files>
-		<file src="bin\x64\Release\osrm.net.dll" target="lib\netcoreapp3.1" />
-		<file src="bin\x64\Release\osrm.net.dll" target="ref\netcoreapp3.1" />
+		<file src="bin\x64\Release\osrm.net.dll" target="lib\net6.0" />
+		<file src="bin\x64\Release\osrm.net.dll" target="ref\net6.0" />
 		<file src="bin\x64\Release\tbb*.dll" target="lib\native" />
 		<file src="bin\x64\Release\Ijwhost.dll" target="lib\native" />
-		<file src="osrmnet.targets" target="build\netcoreapp3.1" />
+		<file src="osrmnet.targets" target="build\net6.0" />
 	</files>
 </package>
