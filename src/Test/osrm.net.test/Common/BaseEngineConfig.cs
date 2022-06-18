@@ -14,7 +14,7 @@ namespace osrm.net.test.Common
             // for 3 different kind of test runner (xunit console in appveyor, resharper, visual studio, and whatever
             // in the future), this seems to satisfy all of them for now.
             var executingAssembly = Assembly.GetExecutingAssembly();
-            var codeBaseUrl = new Uri(executingAssembly.CodeBase);
+            var codeBaseUrl = new Uri(executingAssembly.Location);
             var codeBasePath = Uri.UnescapeDataString(codeBaseUrl.AbsolutePath);
             var currentAssemblyDir = Path.GetDirectoryName(codeBasePath) ?? string.Empty;
             var assemblyName = Path.GetFileNameWithoutExtension(executingAssembly.ManifestModule.Name);

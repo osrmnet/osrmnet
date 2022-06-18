@@ -1,43 +1,43 @@
 # Copyright (c) 2016 Surya Suluh and osrmnet contributors.  All rights reserved.
 # Licensed under the MIT License.  See included LICENSE in the project root for license information.
 
-# Master Branch (Release is controlled by Tag)
+# Main Branch (Release is controlled by Tag)
 -
   shallow_clone: true
   clone_depth: 1
-  version: 3.1.0.{build}
+  version: 6.0.0.{build}
   pull_requests:
     do_not_increment_build_number: true
   branches:
     only:
-      - master
+      - main
   configuration: Release
   platform: x64
-  image: Visual Studio 2019
+  image: Visual Studio 2022
   skip_tags: true
   # Uncomment to debug the AV build worker
   # init:
   # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   cache:
-  - .\src\packages -> .\src\**\packages.config
-  - .\src\osrm.net\libosrm -> .\libosrmver.txt
-  - .\src\Test\osrm.net.test\TestData -> .\libosrmver.txt
+    - .\src\packages -> .\src\**\packages.config
+    - .\src\osrm.net\libosrm -> .\libosrmver.txt
+    - .\src\Test\osrm.net.test\TestData -> .\libosrmver.txt
   before_build:
-  - appveyor-retry nuget restore .\src\osrm.net.sln  
+    - appveyor-retry nuget restore .\src\osrm.net.sln  
 
   build_script:
-  - ps: .\build.ps1
-  - nuget.exe pack .\src\osrm.net\osrm.net.nuspec -NonInteractive  -Version %APPVEYOR_BUILD_VERSION%
+    - ps: .\build.ps1
+    - nuget.exe pack .\src\osrm.net\osrm.net.nuspec -NonInteractive  -Version %APPVEYOR_BUILD_VERSION%
   artifacts:
-  - path: '*.nupkg'
+    - path: '*.nupkg'
   assembly_info:
     patch: true
     file: AssemblyInfo.*
-    assembly_version: "3.1.0.{build}"
-    assembly_file_version: "3.1.0.{build}"
-    assembly_informational_version: "3.1.0.{build}"
-  test:
-    assemblies: '**\*.Test.dll'
+    assembly_version: "6.0.0.{build}"
+    assembly_file_version: "6.0.0.{build}"
+    assembly_informational_version: "6.0.0.{build}"
+  test_script:
+    - ps: .\build.ps1 --target=Test 
   deploy:
     provider: Environment
     name: OsrmnetRelease

@@ -311,3 +311,7 @@ __pycache__/
 
 
 # End of https://www.gitignore.io/api/cake,visualstudio,visualstudiocode
+
+
+## Project Specific
+src/osrm.net/libosrm.zip

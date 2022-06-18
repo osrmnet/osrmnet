@@ -45,8 +45,13 @@ Task("CleanDependencies")
     .Description("Clean project dependencies")
     .Does(() =>
     {
-      DeleteDirectory(testDataPath + "TestData", true);
-      DeleteDirectory(libOsrmPath + "libosrm", true);
+      var recurseForceDirSetting = new DeleteDirectorySettings
+      {
+        Recursive = true,
+        Force = true        
+      };
+      DeleteDirectory(testDataPath + "TestData", recurseForceDirSetting);
+      DeleteDirectory(libOsrmPath + "libosrm", recurseForceDirSetting);
     });
 
 Task("Build")
@@ -57,11 +62,18 @@ Task("Build")
   // msbuild instruction:
   // msbuild .\src\osrm.net.sln /t:Rebuild /p:Configuration=Release;Platform="x64" /m
   MSBuild("./src/osrm.net.sln", configurator => {
-    configurator.UseToolVersion(MSBuildToolVersion.VS2019)
+    configurator.UseToolVersion(MSBuildToolVersion.VS2022)
     .SetConfiguration("Release")
     .SetPlatformTarget(PlatformTarget.x64)
     .WithTarget("Rebuild");
   });
+});
+
+Task("Test")
+.Description("Test Project")
+.Does(() =>
+{
+  DotNetVSTest("./src/Test/osrm.net.test/bin/Release/net6.0/osrm.net.test.dll");
 });
 
 //////////////////////////////////////////////////////////////////////
