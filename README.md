@@ -13,7 +13,7 @@ Contribution is always welcome, please email me:  ssuluh@yahoo.com
 
 # What's New
 - Dotnet Core 3.1 runtime is now deprecated. Dotnet 6 is now the current supported runtime
-- License has changed from MIT to Apache V2 effective from this commit moving forward.
+- License has changed from MIT to Apache V2 effective from [this commit](https://github.com/osrmnet/osrmnet/commit/a8b886f9e39fcafdc292292d76cfe406f4bcd95d) moving forward.
 # Supported OSRM Version
 [GitHub Project-OSRM/osrm-backend 5.26](https://github.com/Project-OSRM/osrm-backend/tree/5.26)
 
