@@ -3,13 +3,30 @@ osrmnet
 [![Build status](https://ci.appveyor.com/api/projects/status/temd3bf4l84h3lyh/branch/master?svg=true)](https://ci.appveyor.com/project/ssuluh/osrmnet/branch/master)
 [![NuGet](https://img.shields.io/nuget/dt/osrmnet.svg)]()
 
-** Help Wanted To Maintain This Repo ! **
 
-This project provides necessary .NET wrapper to use OSRM library directly without the web server (https://github.com/Project-OSRM/osrm-backend).
+# 🚨 Deprecation Notice 🚨
 
-Our design goal is to follow as close as possible OSRM project's APIs and data types.  User should be able to use OSRM documentation to use this library.
+### Important Announcement
 
-Contribution is always welcome, please email me:  ssuluh@yahoo.com
+As of July 2024, this repository is officially deprecated and will no longer be maintained.
+
+### What does this mean?
+
+- **No further updates**: There will be no more updates, bug fixes, or new features added to this repository.
+- **Use it at your own risk**
+
+### Why is this happening?
+
+- Lack of maintainer resource
+- Unfavorable technolgoy and implementation
+
+### Thank You
+
+We appreciate all the support and contributions from the community over the years. Thank you for being a part of this journey.
+
+
+# 🚨 End Deprecation Notice 🚨
+
 
 # What's New
 - Dotnet Core 3.1 runtime is now deprecated. Dotnet 6 is now the current supported runtime
